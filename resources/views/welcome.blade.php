@@ -186,7 +186,7 @@
         .welcome-content {
             display: flex;
             justify-content: center;
-            max-width: 560px;
+            max-width: 640px;
             width: 100%;
             align-items: center;
         }
@@ -534,33 +534,35 @@
             align-items: center;
             gap: 8px;
             padding: 10px 18px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: 100px;
             font-size: 13px;
             font-weight: 700;
-            color: var(--gray-700);
+            color: #1a1a2e;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
         }
 
         .back-btn:hover {
-            background: rgba(255, 255, 255, 0.95);
+            background: #ffffff;
             color: var(--primary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
         }
 
         .theme-dark .back-btn {
-            background: rgba(30, 40, 60, 0.8);
-            border-color: rgba(255, 255, 255, 0.15);
-            color: var(--gray-300);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            background: rgba(20, 25, 40, 0.85);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
         }
 
         .theme-dark .back-btn:hover {
-            background: rgba(30, 40, 60, 0.95);
+            background: rgba(30, 35, 50, 0.95);
             color: var(--primary);
         }
 
