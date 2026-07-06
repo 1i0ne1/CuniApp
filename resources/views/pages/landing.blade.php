@@ -541,65 +541,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="landing-footer">
-        <div style="max-width:1280px;margin:0 auto;padding:48px 24px;">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <div class="footer-logo-icon"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5L35 15V25L20 35L5 25V15L20 5Z" fill="white"/><path d="M20 12L28 17V23L20 28L12 23V17L20 12Z" fill="rgba(255,255,255,0.8)"/></svg></div>
-                        <div class="footer-logo-text">CuniApp <span>{{ __('Élevage') }}</span></div>
-                    </div>
-                    <p class="footer-tagline">{{ __('La solution complète pour la gestion intelligente de votre élevage de lapins.') }} {{ __('Suivez vos reproductions, naissances et performances en toute simplicité.') }}</p>
-                    <div class="footer-toggles">
-                        <div class="toggle-group" id="themeToggle">
-                            <button class="toggle-btn" data-theme="light" title="{{ __('Thème clair') }}"><i class="bi bi-sun"></i></button>
-                            <button class="toggle-btn" data-theme="dark" title="{{ __('Thème sombre') }}"><i class="bi bi-moon"></i></button>
-                            <button class="toggle-btn active" data-theme="system" title="{{ __('Thème du système') }}"><i class="bi bi-circle-half"></i></button>
-                        </div>
-                        <div class="toggle-group" id="langToggle">
-                            <a href="{{ route('lang.switch', 'fr') }}" class="toggle-btn {{ app()->getLocale() === 'fr' ? 'active' : '' }}" title="{{ __('Changer de langue') }}">🇫🇷 FR</a>
-                            <a href="{{ route('lang.switch', 'en') }}" class="toggle-btn {{ app()->getLocale() === 'en' ? 'active' : '' }}" title="{{ __('Changer de langue') }}">🇺🇸 EN</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4><i class="bi bi-compass"></i> {{ __('Navigation') }}</h4>
-                    <ul class="footer-links">
-                        <li><a href="#features"><i class="bi bi-chevron-right"></i> {{ __('Fonctionnalités') }}</a></li>
-                        <li><a href="#pricing"><i class="bi bi-chevron-right"></i> {{ __('Tarifs') }}</a></li>
-                        <li><a href="{{ route('connect') }}#register"><i class="bi bi-chevron-right"></i> {{ __('Commencer') }}</a></li>
-                        <li><a href="{{ route('connect') }}"><i class="bi bi-chevron-right"></i> {{ __('Connexion') }}</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4><i class="bi bi-briefcase"></i> {{ __("Gestion d'Élevage") }}</h4>
-                    <ul class="footer-links">
-                        <li><a href="{{ route('connect') }}#register"><i class="bi bi-chevron-right"></i> {{ __('Suivi des Reproductions') }}</a></li>
-                        <li><a href="{{ route('connect') }}#register"><i class="bi bi-chevron-right"></i> {{ __('Gestion des Naissances') }}</a></li>
-                        <li><a href="{{ route('connect') }}#register"><i class="bi bi-chevron-right"></i> {{ __('Inventaire Complet') }}</a></li>
-                        <li><a href="{{ route('connect') }}#register"><i class="bi bi-chevron-right"></i> {{ __('Gestion des Ventes') }}</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4><i class="bi bi-envelope"></i> {{ __('Contact & Infos') }}</h4>
-                    <div class="footer-contact-item"><i class="bi bi-geo-alt-fill"></i><div><strong>{{ __('Adresse') }}</strong><span>Houé​yiho après le pont devant Volta United, Cotonou, Bénin</span></div></div>
-                    <div class="footer-contact-item"><i class="bi bi-whatsapp"></i><div><strong>WhatsApp</strong><a href="https://wa.me/22901524152" target="_blank">+229 01 52 41 52 41</a></div></div>
-                    <div class="footer-contact-item"><i class="bi bi-envelope-fill"></i><div><strong>Email</strong><a href="mailto:contact@anyxtech.com">contact@anyxtech.com</a></div></div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="footer-copyright">
-                <p>&copy; {{ date('Y') }} <a href="{{ route('home') }}">CuniApp {{ __('Élevage') }}</a>. {{ __('Tous droits réservés.') }}</p>
-                <p class="footer-version">Version {{ config('app.version', '1.0.0') }} <span class="separator">•</span> {{ __('Build') }} {{ date('Y.m.d') }}</p>
-            </div>
-            <div class="footer-legal">
-                <a href="{{ route('privacy') }}"><i class="bi bi-shield-check"></i> {{ __('Confidentialité') }}</a>
-                <a href="{{ route('terms') }}"><i class="bi bi-file-text"></i> {{ __('Conditions') }}</a>
-                <a href="{{ route('connect') }}"><i class="bi bi-headset"></i> {{ __('Support') }}</a>
-            </div>
-        </div>
-    </footer>
+    @include('components.public-footer')
 
     <script>
         // Navbar scroll

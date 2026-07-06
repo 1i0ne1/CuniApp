@@ -60,6 +60,32 @@
             --radius-xl: 20px;
         }
 
+        .theme-dark {
+            --primary: #4DA6FF;
+            --primary-light: #6BB8FF;
+            --primary-dark: #3B8FE0;
+            --primary-subtle: rgba(77, 166, 255, 0.12);
+            --white: #0A0F1D;
+            --gray-50: #080C15;
+            --gray-100: #0F172A;
+            --gray-200: #1A2335;
+            --gray-300: #25324A;
+            --gray-400: #4A5568;
+            --gray-500: #718096;
+            --gray-600: #A0AEC0;
+            --gray-700: #CBD5E0;
+            --gray-800: #E2E8F0;
+            --gray-900: #F7FAFC;
+            --surface: #0A0F1D;
+            --accent-green: #34D399;
+            --accent-orange: #FB923C;
+            --accent-red: #F87171;
+            --text-primary: #E6E9F0;
+            --text-secondary: #A3B3C6;
+            --text-tertiary: #6B7D95;
+            --surface-border: #25324A;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -72,6 +98,10 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+        }
+
+        .theme-dark body {
+            background: linear-gradient(135deg, #0a1628 0%, #0f172a 50%, #111827 100%);
         }
 
         .bg-particle {
@@ -148,10 +178,9 @@
         }
 
         .welcome-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            max-width: 1200px;
+            display: flex;
+            justify-content: center;
+            max-width: 480px;
             width: 100%;
             align-items: center;
         }
@@ -160,6 +189,7 @@
             position: relative;
             color: var(--white);
             animation: slideInLeft 1s ease-out;
+            display: none;
         }
 
         @keyframes slideInLeft {
@@ -438,6 +468,90 @@
 
         .form-input.success {
             border-color: var(--accent-green);
+        }
+
+        /* Dark mode overrides */
+        .theme-dark .auth-container {
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+        }
+
+        .theme-dark .auth-tabs {
+            background: var(--gray-200);
+        }
+
+        .theme-dark .auth-tab {
+            color: var(--gray-500);
+        }
+
+        .theme-dark .auth-tab.active {
+            background: var(--gray-300);
+            color: var(--primary);
+        }
+
+        .theme-dark .form-title {
+            color: var(--gray-800);
+        }
+
+        .theme-dark .form-subtitle {
+            color: var(--gray-500);
+        }
+
+        .theme-dark .form-label {
+            color: var(--gray-700);
+        }
+
+        .theme-dark .form-input {
+            background: var(--gray-200);
+            border-color: var(--gray-300);
+            color: var(--gray-800);
+        }
+
+        .theme-dark .form-input::placeholder {
+            color: var(--gray-500);
+        }
+
+        .theme-dark .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-subtle);
+        }
+
+        .theme-dark .remember-me {
+            color: var(--gray-600);
+        }
+
+        .theme-dark .forgot-password {
+            color: var(--primary);
+        }
+
+        .theme-dark .divider {
+            color: var(--gray-500);
+        }
+
+        .theme-dark .divider::before,
+        .theme-dark .divider::after {
+            background: var(--gray-300);
+        }
+
+        .theme-dark .btn-social {
+            background: var(--gray-200);
+            border-color: var(--gray-300);
+            color: var(--gray-700);
+        }
+
+        .theme-dark .back-btn {
+            background: rgba(15, 23, 42, 0.7);
+            border-color: rgba(77, 166, 255, 0.15);
+            color: var(--gray-600);
+        }
+
+        .theme-dark .back-btn:hover {
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--primary);
+        }
+
+        .theme-dark .bg-particle {
+            background: rgba(77, 166, 255, 0.06);
         }
 
         .validation-message {
@@ -823,13 +937,11 @@
 
         @media (max-width: 968px) {
             .welcome-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
-                text-align: center;
+                max-width: 100%;
             }
 
             .brand-section {
-                order: 2;
+                display: none;
             }
 
             .auth-section {
@@ -2598,61 +2710,7 @@ if (step && window.opener) {
     </script>
 
     <!-- Footer -->
-    <footer style="background:var(--gray-50);border-top:1px solid var(--gray-200);position:relative;z-index:10;margin-top:40px;">
-        <div style="max-width:1280px;margin:0 auto;padding:48px 24px;">
-            <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1.5fr;gap:40px;">
-                <div>
-                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-                        <div style="width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:var(--radius);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 40 40" fill="none" width="20" height="20"><path d="M20 5L35 15V25L20 35L5 25V15L20 5Z" fill="white"/><path d="M20 12L28 17V23L20 28L12 23V17L20 12Z" fill="rgba(255,255,255,0.8)"/></svg></div>
-                        <div style="font-size:18px;font-weight:700;color:var(--gray-800);">CuniApp <span style="color:var(--primary);">{{ __("Élevage") }}</span></div>
-                    </div>
-                    <p style="font-size:13px;color:var(--gray-500);line-height:1.7;margin-bottom:20px;">{{ __("La solution complète pour la gestion intelligente de votre élevage de lapins.") }} {{ __("Suivez vos reproductions, naissances et performances en toute simplicité.") }}</p>
-                    <div style="display:flex;align-items:center;gap:12px;margin-top:16px;">
-                        <div style="display:flex;align-items:center;background:white;border:1px solid var(--gray-200);border-radius:var(--radius);" id="themeToggleFooter">
-                            <button onclick="setTheme('light')" style="padding:6px 10px;font-size:13px;border:none;background:transparent;color:var(--gray-500);cursor:pointer;display:flex;align-items:center;gap:4px;" title="{{ __("Thème clair") }}"><i class="bi bi-sun"></i></button>
-                            <button onclick="setTheme('dark')" style="padding:6px 10px;font-size:13px;border:none;background:transparent;color:var(--gray-500);cursor:pointer;display:flex;align-items:center;gap:4px;" title="{{ __("Thème sombre") }}"><i class="bi bi-moon"></i></button>
-                            <button onclick="setTheme('system')" style="padding:6px 10px;font-size:13px;border:none;background:var(--primary);color:white;border-radius:var(--radius);cursor:pointer;display:flex;align-items:center;gap:4px;" title="{{ __("Thème du système") }}"><i class="bi bi-circle-half"></i></button>
-                        </div>
-                        <div style="display:flex;align-items:center;background:white;border:1px solid var(--gray-200);border-radius:var(--radius);">
-                            <a href="{{ route('lang.switch', 'fr') }}" style="padding:6px 10px;font-size:13px;text-decoration:none;background:{{ app()->getLocale() === 'fr' ? 'var(--primary)' : 'transparent' }};color:{{ app()->getLocale() === 'fr' ? 'white' : 'var(--gray-500)' }};display:flex;align-items:center;gap:4px;">🇫🇷 FR</a>
-                            <a href="{{ route('lang.switch', 'en') }}" style="padding:6px 10px;font-size:13px;text-decoration:none;background:{{ app()->getLocale() === 'en' ? 'var(--primary)' : 'transparent' }};color:{{ app()->getLocale() === 'en' ? 'white' : 'var(--gray-500)' }};display:flex;align-items:center;gap:4px;">🇺🇸 EN</a>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h4 style="font-size:14px;font-weight:600;color:var(--gray-800);margin-bottom:16px;">{{ __("Navigation") }}</h4>
-                    <ul style="list-style:none;padding:0;margin:0;">
-                        <li style="margin-bottom:8px;"><a href="{{ route('home') }}" style="font-size:13px;color:var(--gray-500);text-decoration:none;display:flex;align-items:center;gap:8px;"><i class="bi bi-chevron-right" style="font-size:10px;color:var(--gray-400);"></i> {{ __("Fonctionnalités") }}</a></li>
-                        <li style="margin-bottom:8px;"><a href="{{ route('home') }}#pricing" style="font-size:13px;color:var(--gray-500);text-decoration:none;display:flex;align-items:center;gap:8px;"><i class="bi bi-chevron-right" style="font-size:10px;color:var(--gray-400);"></i> {{ __("Tarifs") }}</a></li>
-                        <li style="margin-bottom:8px;"><a href="{{ route('home') }}" style="font-size:13px;color:var(--gray-500);text-decoration:none;display:flex;align-items:center;gap:8px;"><i class="bi bi-chevron-right" style="font-size:10px;color:var(--gray-400);"></i> {{ __("Commencer") }}</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 style="font-size:14px;font-weight:600;color:var(--gray-800);margin-bottom:16px;"><i class="bi bi-briefcase"></i> {{ __("Gestion d'Élevage") }}</h4>
-                    <ul style="list-style:none;padding:0;margin:0;">
-                        <li style="margin-bottom:8px;"><a href="{{ route('home') }}#features" style="font-size:13px;color:var(--gray-500);text-decoration:none;display:flex;align-items:center;gap:8px;"><i class="bi bi-chevron-right" style="font-size:10px;color:var(--gray-400);"></i> {{ __("Suivi des Reproductions") }}</a></li>
-                        <li style="margin-bottom:8px;"><a href="{{ route('home') }}#features" style="font-size:13px;color:var(--gray-500);text-decoration:none;display:flex;align-items:center;gap:8px;"><i class="bi bi-chevron-right" style="font-size:10px;color:var(--gray-400);"></i> {{ __("Gestion des Naissances") }}</a></li>
-                        <li style="margin-bottom:8px;"><a href="{{ route('home') }}#features" style="font-size:13px;color:var(--gray-500);text-decoration:none;display:flex;align-items:center;gap:8px;"><i class="bi bi-chevron-right" style="font-size:10px;color:var(--gray-400);"></i> {{ __("Inventaire Complet") }}</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 style="font-size:14px;font-weight:600;color:var(--gray-800);margin-bottom:16px;"><i class="bi bi-envelope"></i> {{ __("Contact & Infos") }}</h4>
-                    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;"><i class="bi bi-geo-alt-fill" style="color:var(--primary);font-size:16px;margin-top:2px;"></i><div><strong style="display:block;font-size:13px;color:var(--gray-800);margin-bottom:2px;">{{ __("Adresse") }}</strong><span style="font-size:12px;color:var(--gray-500);">Houé​yiho après le pont devant Volta United, Cotonou, Bénin</span></div></div>
-                    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;"><i class="bi bi-whatsapp" style="color:var(--primary);font-size:16px;margin-top:2px;"></i><div><strong style="display:block;font-size:13px;color:var(--gray-800);margin-bottom:2px;">WhatsApp</strong><a href="https://wa.me/22901524152" target="_blank" style="font-size:12px;color:var(--gray-500);text-decoration:none;">+229 01 52 41 52 41</a></div></div>
-                    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;"><i class="bi bi-envelope-fill" style="color:var(--primary);font-size:16px;margin-top:2px;"></i><div><strong style="display:block;font-size:13px;color:var(--gray-800);margin-bottom:2px;">Email</strong><a href="mailto:contact@anyxtech.com" style="font-size:12px;color:var(--gray-500);text-decoration:none;">contact@anyxtech.com</a></div></div>
-                </div>
-            </div>
-        </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:24px;border-top:1px solid var(--gray-200);background:white;">
-            <div>
-                <p style="font-size:13px;color:var(--gray-500);">&copy; {{ date('Y') }} <a href="{{ route('home') }}" style="color:var(--primary);text-decoration:none;font-weight:600;">CuniApp {{ __("Élevage") }}</a>. {{ __("Tous droits réservés.") }}</p>
-            </div>
-            <div style="display:flex;align-items:center;gap:20px;">
-                <a href="{{ route('privacy') }}" style="font-size:13px;color:var(--gray-500);text-decoration:none;display:flex;align-items:center;gap:6px;"><i class="bi bi-shield-check"></i> {{ __("Confidentialité") }}</a>
-                <a href="{{ route('terms') }}" style="font-size:13px;color:var(--gray-500);text-decoration:none;display:flex;align-items:center;gap:6px;"><i class="bi bi-file-text"></i> {{ __("Conditions") }}</a>
-            </div>
-        </div>
-    </footer>
+    @include('components.public-footer')
 
     <!-- Dark Mode Support -->
     <script>
