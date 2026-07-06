@@ -180,15 +180,12 @@
         .welcome-content {
             display: flex;
             justify-content: center;
-            max-width: 480px;
+            max-width: 520px;
             width: 100%;
             align-items: center;
         }
 
         .brand-section {
-            position: relative;
-            color: var(--white);
-            animation: slideInLeft 1s ease-out;
             display: none;
         }
 
@@ -315,7 +312,6 @@
 
         .auth-section {
             position: relative;
-            animation: slideInRight 1s ease-out;
         }
 
         @keyframes slideInRight {
@@ -339,8 +335,8 @@
         }
 
         .auth-container:hover {
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
         }
 
         .auth-tabs {
@@ -946,14 +942,6 @@
 
             .auth-section {
                 order: 1;
-            }
-
-            .features-list li {
-                justify-content: center;
-            }
-
-            .brand-title {
-                font-size: 36px;
             }
         }
 
