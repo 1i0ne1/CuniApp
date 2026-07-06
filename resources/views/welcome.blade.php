@@ -1532,49 +1532,48 @@
         <!-- Animated Background -->
     <div style="position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:1;">
         <!-- SVG Grid with glowing lines -->
-        <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.06;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.12;">
             <defs>
-                <pattern id="connect-grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="#4da6ff" stroke-width="0.5"/></pattern>
-                <pattern id="connect-grid-lg" width="240" height="240" patternUnits="userSpaceOnUse"><path d="M 240 0 L 0 0 0 240" fill="none" stroke="#4da6ff" stroke-width="1"/></pattern>
-                <radialGradient id="c-dot-glow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#4da6ff" stop-opacity="1"/><stop offset="30%" stop-color="#4da6ff" stop-opacity="0.6"/><stop offset="100%" stop-color="#4da6ff" stop-opacity="0"/></radialGradient>
+                <pattern id="connect-grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.5"/></pattern>
+                <pattern id="connect-grid-lg" width="240" height="240" patternUnits="userSpaceOnUse"><path d="M 240 0 L 0 0 0 240" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1"/></pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#connect-grid)"/>
             <rect width="100%" height="100%" fill="url(#connect-grid-lg)"/>
-            <!-- Vertical glow line -->
-            <line x1="20%" y1="0" x2="20%" y2="100%" stroke="url(#c-dot-glow)" stroke-width="1.5" opacity="0">
-                <animate attributeName="opacity" values="0;0;0.4;0.4;0" dur="8s" repeatCount="indefinite"/>
-                <animate attributeName="y1" values="0;100%" dur="8s" repeatCount="indefinite"/>
-                <animate attributeName="y2" values="20%;120%" dur="8s" repeatCount="indefinite"/>
+            <!-- Vertical glow lines -->
+            <line x1="20%" y1="-10%" x2="20%" y2="110%" stroke="#4da6ff" stroke-width="2" opacity="0">
+                <animate attributeName="opacity" values="0;0;0.6;0.6;0" dur="6s" repeatCount="indefinite"/>
+                <animate attributeName="y1" values="-10%;110%" dur="6s" repeatCount="indefinite"/>
+                <animate attributeName="y2" values="0%;120%" dur="6s" repeatCount="indefinite"/>
             </line>
-            <line x1="50%" y1="0" x2="50%" y2="100%" stroke="url(#c-dot-glow)" stroke-width="1.2" opacity="0">
-                <animate attributeName="opacity" values="0;0;0.3;0.3;0" dur="11s" repeatCount="indefinite" begin="3s"/>
-                <animate attributeName="y1" values="0;100%" dur="11s" repeatCount="indefinite" begin="3s"/>
-                <animate attributeName="y2" values="20%;120%" dur="11s" repeatCount="indefinite" begin="3s"/>
+            <line x1="50%" y1="-10%" x2="50%" y2="110%" stroke="#38bdf8" stroke-width="1.5" opacity="0">
+                <animate attributeName="opacity" values="0;0;0.5;0.5;0" dur="8s" repeatCount="indefinite" begin="2s"/>
+                <animate attributeName="y1" values="-10%;110%" dur="8s" repeatCount="indefinite" begin="2s"/>
+                <animate attributeName="y2" values="0%;120%" dur="8s" repeatCount="indefinite" begin="2s"/>
             </line>
-            <line x1="80%" y1="0" x2="80%" y2="100%" stroke="url(#c-dot-glow)" stroke-width="1" opacity="0">
-                <animate attributeName="opacity" values="0;0;0.25;0.25;0" dur="10s" repeatCount="indefinite" begin="6s"/>
-                <animate attributeName="y1" values="100%;0" dur="10s" repeatCount="indefinite" begin="6s"/>
-                <animate attributeName="y2" values="120%;20%" dur="10s" repeatCount="indefinite" begin="6s"/>
+            <line x1="80%" y1="-10%" x2="80%" y2="110%" stroke="#4da6ff" stroke-width="1.2" opacity="0">
+                <animate attributeName="opacity" values="0;0;0.4;0.4;0" dur="9s" repeatCount="indefinite" begin="4s"/>
+                <animate attributeName="y1" values="110%;-10%" dur="9s" repeatCount="indefinite" begin="4s"/>
+                <animate attributeName="y2" values="120%;0%" dur="9s" repeatCount="indefinite" begin="4s"/>
             </line>
             <!-- Horizontal glow lines -->
-            <line x1="0" y1="30%" x2="100%" y2="30%" stroke="url(#c-dot-glow)" stroke-width="1.2" opacity="0">
-                <animate attributeName="opacity" values="0;0;0.3;0.3;0" dur="9s" repeatCount="indefinite" begin="1s"/>
-                <animate attributeName="x1" values="0;100%" dur="9s" repeatCount="indefinite" begin="1s"/>
-                <animate attributeName="x2" values="20%;120%" dur="9s" repeatCount="indefinite" begin="1s"/>
+            <line x1="-10%" y1="30%" x2="110%" y2="30%" stroke="#4da6ff" stroke-width="1.5" opacity="0">
+                <animate attributeName="opacity" values="0;0;0.5;0.5;0" dur="7s" repeatCount="indefinite" begin="1s"/>
+                <animate attributeName="x1" values="-10%;110%" dur="7s" repeatCount="indefinite" begin="1s"/>
+                <animate attributeName="x2" values="0%;120%" dur="7s" repeatCount="indefinite" begin="1s"/>
             </line>
-            <line x1="0" y1="70%" x2="100%" y2="70%" stroke="url(#c-dot-glow)" stroke-width="1" opacity="0">
-                <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="12s" repeatCount="indefinite" begin="5s"/>
-                <animate attributeName="x1" values="100%;0" dur="12s" repeatCount="indefinite" begin="5s"/>
-                <animate attributeName="x2" values="120%;20%" dur="12s" repeatCount="indefinite" begin="5s"/>
+            <line x1="-10%" y1="70%" x2="110%" y2="70%" stroke="#38bdf8" stroke-width="1.2" opacity="0">
+                <animate attributeName="opacity" values="0;0;0.4;0.4;0" dur="10s" repeatCount="indefinite" begin="5s"/>
+                <animate attributeName="x1" values="110%;-10%" dur="10s" repeatCount="indefinite" begin="5s"/>
+                <animate attributeName="x2" values="120%;0%" dur="10s" repeatCount="indefinite" begin="5s"/>
             </line>
             <!-- Curve-following glow dot -->
-            <path id="c-curve1" d="M0,40% Q25%,35% 50%,42% T100%,38%" fill="none" stroke="#4da6ff" stroke-width="0.6" opacity="0.2"/>
-            <circle r="6" fill="url(#c-dot-glow)" opacity="0.35"><animateMotion dur="10s" repeatCount="indefinite" rotate="auto"><mpath href="#c-curve1"/></animateMotion><animate attributeName="opacity" values="0;0.35;0.35;0" dur="10s" repeatCount="indefinite"/></circle>
+            <path id="c-curve1" d="M0,40% Q25%,35% 50%,42% T100%,38%" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <circle r="8" fill="#4da6ff" opacity="0"><animateMotion dur="8s" repeatCount="indefinite" rotate="auto"><mpath href="#c-curve1"/></animateMotion><animate attributeName="opacity" values="0;0.6;0.6;0" dur="8s" repeatCount="indefinite"/></circle>
             <!-- Pulsing dots -->
-            <circle cx="15%" cy="20%" r="2" fill="#4da6ff" opacity="0.2"><animate attributeName="opacity" values="0.05;0.25;0.05" dur="7s" repeatCount="indefinite"/></circle>
-            <circle cx="85%" cy="15%" r="2.5" fill="#38bdf8" opacity="0.15"><animate attributeName="opacity" values="0.05;0.2;0.05" dur="9s" repeatCount="indefinite" begin="2s"/></circle>
-            <circle cx="70%" cy="80%" r="2" fill="#4da6ff" opacity="0.2"><animate attributeName="opacity" values="0.05;0.22;0.05" dur="8s" repeatCount="indefinite" begin="4s"/></circle>
-            <circle cx="30%" cy="85%" r="1.5" fill="#38bdf8" opacity="0.15"><animate attributeName="opacity" values="0.03;0.18;0.03" dur="11s" repeatCount="indefinite" begin="1s"/></circle>
+            <circle cx="15%" cy="20%" r="3" fill="#4da6ff"><animate attributeName="opacity" values="0.1;0.5;0.1" dur="5s" repeatCount="indefinite"/></circle>
+            <circle cx="85%" cy="15%" r="3.5" fill="#38bdf8"><animate attributeName="opacity" values="0.08;0.4;0.08" dur="7s" repeatCount="indefinite" begin="1.5s"/></circle>
+            <circle cx="70%" cy="80%" r="2.5" fill="#4da6ff"><animate attributeName="opacity" values="0.1;0.45;0.1" dur="6s" repeatCount="indefinite" begin="3s"/></circle>
+            <circle cx="30%" cy="85%" r="2" fill="#38bdf8"><animate attributeName="opacity" values="0.05;0.35;0.05" dur="8s" repeatCount="indefinite" begin="2s"/></circle>
         </svg>
         <!-- Decorative blobs -->
         <div style="position:absolute;top:-120px;right:-120px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(77,166,255,0.12) 0%,transparent 70%);"></div>
