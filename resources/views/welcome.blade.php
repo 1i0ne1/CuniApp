@@ -58,6 +58,11 @@
             --radius-md: 12px;
             --radius-lg: 16px;
             --radius-xl: 20px;
+            --surface-alt: #F9FAFB;
+            --surface-border: #E5E7EB;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --text-tertiary: #9CA3AF;
         }
 
         .theme-dark {
@@ -77,13 +82,14 @@
             --gray-800: #E2E8F0;
             --gray-900: #F7FAFC;
             --surface: #0A0F1D;
-            --accent-green: #34D399;
-            --accent-orange: #FB923C;
-            --accent-red: #F87171;
+            --surface-alt: #0F172A;
+            --surface-border: #25324A;
             --text-primary: #E6E9F0;
             --text-secondary: #A3B3C6;
             --text-tertiary: #6B7D95;
-            --surface-border: #25324A;
+            --accent-green: #34D399;
+            --accent-orange: #FB923C;
+            --accent-red: #F87171;
         }
 
         * {
@@ -180,7 +186,7 @@
         .welcome-content {
             display: flex;
             justify-content: center;
-            max-width: 520px;
+            max-width: 600px;
             width: 100%;
             align-items: center;
         }
@@ -372,7 +378,7 @@
         }
 
         .auth-forms {
-            padding: 40px;
+            padding: 32px 40px;
         }
 
         .auth-form {
@@ -1690,7 +1696,7 @@
                         </form>
 
                         <!-- Register Form (2-Step Process) -->
-                        <form method="POST" action="{{ route('register') }}" class="auth-form" id="form-register" style="display: none;">
+                        <form method="POST" action="{{ route('register') }}" class="auth-form" id="form-register">
                             @csrf
 
                             @if ($errors->has('name') || $errors->has('email') || $errors->has('password') || $errors->has('password_confirmation') || $errors->has('firm_name') || $errors->has('terms') || $errors->has('firm_description'))
