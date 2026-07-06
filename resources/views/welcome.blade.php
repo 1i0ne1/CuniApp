@@ -274,7 +274,6 @@
             margin-bottom: 16px;
             font-size: 16px;
             color: rgba(255, 255, 255, 0.9);
-            animation: fadeInUp 0.6s ease-out backwards;
         }
 
         .features-list li:nth-child(1) {
@@ -1154,8 +1153,6 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             margin-bottom: 40px;
-            animation: fadeInUp 0.8s ease-out backwards;
-            animation-delay: 0.2s;
         }
 
         .step-item {
@@ -1214,7 +1211,6 @@
             width: 100px;
             height: 100px;
             z-index: 100;
-            animation: bounceIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s backwards;
             pointer-events: none;
         }
 
@@ -1290,7 +1286,6 @@
 ✅ REGISTRATION STEP STYLES - ADD THIS
 ============================================ */
         .form-step {
-            animation: fadeInStep 0.4s ease;
         }
 
         @keyframes fadeInStep {
@@ -1352,9 +1347,7 @@
             }
 
             .welcome-content {
-                grid-template-columns: 1fr;
-                gap: 32px;
-                max-width: 520px;
+                max-width: 600px;
             }
 
             .brand-section {
