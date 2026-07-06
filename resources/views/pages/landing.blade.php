@@ -47,16 +47,14 @@
         .animate-float-delayed { animation:float 6s ease-in-out infinite; animation-delay:-3s; }
         .animate-bounce-subtle { animation:bounceSubtle 2s ease-in-out infinite; }
 
-        /* Back Button */
-        .back-btn { position:fixed; top:20px; left:20px; z-index:100; display:flex; align-items:center; gap:8px; padding:10px 18px; background:rgba(255,255,255,0.7); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(37,99,235,0.1); border-radius:100px; font-size:13px; font-weight:500; color:var(--gray-600); text-decoration:none; transition:all 0.3s ease; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
-        .back-btn:hover { background:rgba(255,255,255,0.9); color:var(--primary); border-color:rgba(37,99,235,0.2); box-shadow:0 4px 16px rgba(0,0,0,0.08); }
-        .theme-dark .back-btn { background:rgba(15,23,42,0.7); border-color:rgba(77,166,255,0.15); color:var(--gray-600); }
-        .theme-dark .back-btn:hover { background:rgba(15,23,42,0.9); color:var(--primary); }
-
         /* Navbar */
         .landing-nav { position:sticky; top:0; z-index:50; transition:all 0.5s ease; }
         .landing-nav.scrolled { background:var(--surface); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid var(--surface-border); box-shadow:0 4px 30px rgba(37,99,235,0.06); }
         .nav-container { max-width:1280px; margin:0 auto; padding:0 24px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+        .nav-back { display:flex; align-items:center; gap:8px; padding:8px 16px; background:transparent; border:1px solid var(--gray-200); border-radius:100px; font-size:13px; font-weight:500; color:var(--gray-600); text-decoration:none; transition:all 0.3s ease; flex-shrink:0; }
+        .nav-back:hover { color:var(--primary); border-color:rgba(37,99,235,0.3); background:var(--primary-subtle); }
+        .theme-dark .nav-back { border-color:var(--gray-700); color:var(--gray-400); }
+        .theme-dark .nav-back:hover { color:var(--primary); border-color:rgba(77,166,255,0.3); background:var(--primary-subtle); }
         .nav-brand { display:flex; align-items:center; gap:12px; text-decoration:none; }
         .nav-logo { width:40px; height:40px; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(37,99,235,0.3); }
         .nav-logo svg { width:22px; height:22px; }
@@ -203,7 +201,7 @@
         .btn-cta-secondary:hover { background:rgba(255,255,255,0.2); }
 
         /* Footer */
-        .landing-footer { background:var(--surface-alt); border-top:1px solid var(--surface-border); }
+        .landing-footer { background:var(--surface-alt); border-top:1px solid var(--surface-border); position:relative; z-index:10; }
         .footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1.5fr; gap:40px; }
         @media(max-width:1024px) { .footer-grid{grid-template-columns:1fr 1fr;} }
         @media(max-width:640px) { .footer-grid{grid-template-columns:1fr;} }
@@ -216,13 +214,13 @@
         .footer-section h4 { font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:16px; display:flex; align-items:center; gap:8px; cursor:pointer; }
         .footer-links { list-style:none; padding:0; margin:0; }
         .footer-links li { margin-bottom:8px; }
-        .footer-links a { font-size:13px; color:var(--text-secondary); text-decoration:none; display:flex; align-items:center; gap:8px; transition:color 0.2s ease; padding:4px 0; }
+        .footer-links a { font-size:13px; color:var(--text-secondary); text-decoration:none; display:flex; align-items:center; gap:8px; transition:color 0.2s ease; padding:4px 0; cursor:pointer; }
         .footer-links a:hover { color:var(--primary); }
-        .footer-links a i { font-size:10px; color:var(--text-tertiary); }
+        .footer-links a i { font-size:10px; color:var(--text-tertiary); pointer-events:none; }
         .footer-contact-item { display:flex; align-items:flex-start; gap:12px; margin-bottom:16px; }
-        .footer-contact-item i { color:var(--primary); font-size:16px; margin-top:2px; flex-shrink:0; }
-        .footer-contact-item strong { display:block; font-size:13px; color:var(--text-primary); margin-bottom:2px; }
-        .footer-contact-item span, .footer-contact-item a { font-size:12px; color:var(--text-secondary); text-decoration:none; }
+        .footer-contact-item i { color:var(--primary); font-size:16px; margin-top:2px; flex-shrink:0; pointer-events:none; }
+        .footer-contact-item strong { display:block; font-size:13px; color:var(--text-primary); margin-bottom:2px; pointer-events:none; }
+        .footer-contact-item span, .footer-contact-item a { font-size:12px; color:var(--text-secondary); text-decoration:none; cursor:pointer; }
         .footer-contact-item a:hover { color:var(--primary); }
         .footer-bottom { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; padding:24px; border-top:1px solid var(--surface-border); background:var(--surface); }
         @media(max-width:768px) { .footer-bottom{flex-direction:column;text-align:center;} }
@@ -237,11 +235,12 @@
 
         /* Theme & Language Toggles in Footer */
         .footer-toggles { display:flex; align-items:center; gap:12px; margin-top:16px; }
-        .toggle-group { display:flex; align-items:center; background:var(--surface); border:1px solid var(--surface-border); border-radius:var(--radius); overflow:hidden; }
-        .toggle-btn { padding:6px 10px; font-size:13px; border:none; background:transparent; color:var(--text-secondary); cursor:pointer; transition:all 0.2s ease; display:flex; align-items:center; gap:4px; }
-        .toggle-btn:hover { color:var(--primary); }
+        .toggle-group { display:flex; align-items:center; background:var(--surface); border:1px solid var(--surface-border); border-radius:var(--radius); }
+        .toggle-btn { padding:6px 10px; font-size:13px; border:none; background:transparent; color:var(--text-secondary); cursor:pointer; transition:all 0.2s ease; display:flex; align-items:center; gap:4px; text-decoration:none; position:relative; z-index:1; }
+        .toggle-btn:hover { color:var(--primary); background:rgba(37,99,235,0.05); }
         .toggle-btn.active { background:var(--primary); color:white; }
-        .toggle-btn i { font-size:14px; }
+        .toggle-btn.active:hover { background:var(--primary-dark); color:white; }
+        .toggle-btn i { font-size:14px; pointer-events:none; }
 
         /* Section reveal */
         .section-reveal { opacity:0; transform:translateY(32px); transition:all 0.7s ease; }
@@ -260,15 +259,13 @@
 </head>
 
 <body>
-    <!-- Back Button -->
-    <a href="{{ route('home') }}" class="back-btn" title="Retour">
-        <i class="bi bi-arrow-left"></i>
-        <span>{{ __('Retour') }}</span>
-    </a>
-
     <!-- Navbar -->
     <nav class="landing-nav" id="landingNav">
         <div class="nav-container">
+            <a href="{{ route('home') }}" class="nav-back">
+                <i class="bi bi-arrow-left"></i>
+                <span>{{ __('Retour') }}</span>
+            </a>
             <a href="/" class="nav-brand">
                 <div class="nav-logo">
                     <svg viewBox="0 0 40 40" fill="none"><path d="M20 5L35 15V25L20 35L5 25V15L20 5Z" fill="white"/><path d="M20 12L28 17V23L20 28L12 23V17L20 12Z" fill="rgba(255,255,255,0.8)"/></svg>
