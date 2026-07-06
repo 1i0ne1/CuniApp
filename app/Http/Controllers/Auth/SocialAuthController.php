@@ -58,7 +58,7 @@ class SocialAuthController extends Controller
                         ? 'Votre compte est désactivé. Veuillez contacter contact@anyxtech.com'
                         : 'Votre entreprise a été suspendue. Veuillez contacter contact@anyxtech.com';
                         
-                    return redirect()->route('welcome')->with('error', $message);
+                    return redirect()->route('connect')->with('error', $message);
                 }
 
                 // ✅ EXISTING USER: Only update tokens and google_id, never touch name or role
@@ -83,7 +83,7 @@ class SocialAuthController extends Controller
                     $request->session()->invalidate();
                     $request->session()->regenerateToken();
 
-                    return redirect()->route('welcome')->with('error', 'Votre abonnement a expiré. Veuillez contacter votre administrateur ou contact@anyxtech.com pour le réactiver.');
+                    return redirect()->route('connect')->with('error', 'Votre abonnement a expiré. Veuillez contacter votre administrateur ou contact@anyxtech.com pour le réactiver.');
                 }
 
                 return redirect()->route('dashboard');
@@ -101,7 +101,7 @@ class SocialAuthController extends Controller
             return redirect()->route('auth.google.complete');
         } catch (Exception $e) {
             Log::error('Google Auth Error: ' . $e->getMessage());
-            return redirect()->route('welcome')
+            return redirect()->route('connect')
                 ->with('error', 'L\'authentification via Google a échoué. Veuillez réessayer.');
         }
     }
@@ -113,7 +113,7 @@ class SocialAuthController extends Controller
     {
         // Guard: if no pending Google user in session, abort
         if (!$request->session()->has('google_oauth_pending_user')) {
-            return redirect()->route('welcome')
+            return redirect()->route('connect')
                 ->with('error', 'Session expirée. Veuillez vous connecter à nouveau via Google.');
         }
 
@@ -130,7 +130,7 @@ class SocialAuthController extends Controller
         // Guard: if no pending Google user in session, abort
         $pendingUser = $request->session()->get('google_oauth_pending_user');
         if (!$pendingUser) {
-            return redirect()->route('welcome')
+            return redirect()->route('connect')
                 ->with('error', 'Session expirée. Veuillez vous connecter à nouveau via Google.');
         }
 

@@ -12,7 +12,7 @@ use Illuminate\View\View;
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the welcome page
+     * Display the welcome/connect page
      */
     public function create(): View
     {
@@ -39,7 +39,7 @@ class AuthenticatedSessionController extends Controller
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
-            return redirect()->route('welcome')->withErrors(['email' => $message]);
+            return redirect()->route('connect')->withErrors(['email' => $message]);
         }
 
         if ($user->isSuperAdmin()) {
@@ -52,7 +52,7 @@ class AuthenticatedSessionController extends Controller
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
-            return redirect()->route('welcome')->with('error', 'Votre abonnement a expiré. Veuillez contacter votre administrateur ou contact@anyxtech.com pour le réactiver.');
+            return redirect()->route('connect')->with('error', 'Votre abonnement a expiré. Veuillez contacter votre administrateur ou contact@anyxtech.com pour le réactiver.');
         }
 
         return redirect()->intended(route('dashboard'));
@@ -70,6 +70,6 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('welcome'); // Always go back to welcome page
+        return redirect()->route('home'); // Always go back to landing page
     }
 }

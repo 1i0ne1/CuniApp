@@ -172,7 +172,7 @@ class RegisteredUserController extends Controller
 
             // ✅ 13. REDIRIGER VERS LA PAGE D'ACCUEIL (Le modal apparaîtra)
             return redirect()
-                ->route('welcome')
+                ->route('connect')
                 ->with('verification_pending', true)
                 ->with('verification_email', $request->email)
                 ->with('success', 'Compte créé avec succès ! Un essai gratuit de 14 jours a été activé. Vérifiez votre email pour activer votre compte.');

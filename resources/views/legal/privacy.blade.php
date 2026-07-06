@@ -465,7 +465,7 @@
     {{-- <script>
         // Passer l'état d'authentification au JS pour fallback si window.close() échoue
         const isAuthenticated = {{ $isAuthenticated ? 'true' : 'false' }};
-        const returnUrl = isAuthenticated ? '{{ route('dashboard') }}' : '{{ route('welcome') }}';
+        const returnUrl = isAuthenticated ? '{{ route('dashboard') }}' : '{{ route('home') }}';
 
         function closeLegalTab() {
             const closeBtn = document.getElementById('closeBtn');

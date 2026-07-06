@@ -1470,7 +1470,7 @@
                         @endif
 
                         <!-- Login Form -->
-                        <form method="POST" action="{{ route('login') }}" class="auth-form active" id="form-login">
+                        <form method="POST" action="{{ route('connect.store') }}" class="auth-form active" id="form-login">
                             @csrf
 
                             <!-- ✅ Login-specific error display (includes session('error') as fallback) -->
@@ -1576,7 +1576,7 @@
                         </form>
 
                         <!-- Register Form (2-Step Process) -->
-                        <form method="POST" action="{{ route('register') }}" class="auth-form" id="form-register">
+                        <form method="POST" action="{{ route('register') }}" class="auth-form" id="form-register" style="display: none;">
                             @csrf
 
                             @if ($errors->has('name') || $errors->has('email') || $errors->has('password') || $errors->has('password_confirmation') || $errors->has('firm_name') || $errors->has('terms') || $errors->has('firm_description'))

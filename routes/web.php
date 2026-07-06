@@ -47,11 +47,15 @@ use App\Http\Controllers\LegalController;
 // 🔓 PUBLIC ROUTES (No authentication required)
 // ========================================================================
 Route::get('/', function () {
-    return redirect()->route('welcome');
+    return view('pages.landing');
 })->name('home');
 
-Route::get('/welcome', [AuthenticatedSessionController::class, 'create'])
-    ->name('welcome')
+Route::get('/welcome', function () {
+    return redirect()->route('home');
+});
+
+Route::get('/connect', [AuthenticatedSessionController::class, 'create'])
+    ->name('connect')
     ->middleware('guest');
 
 Route::get('/about', function () {
@@ -71,6 +75,7 @@ Route::middleware('guest')->group(function () {
     // Authentication Routes
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('/connect', [AuthenticatedSessionController::class, 'store'])->name('connect.store');
 
     // Google Social Login
     Route::get('/customer/social-login/google/redirect', [SocialAuthController::class, 'redirectToGoogle'])
@@ -390,7 +395,7 @@ Sitemap: " . url('/sitemap.xml'), 200, ['Content-Type' => 'text/plain']);
 
 Route::get('/sitemap.xml', function () {
     $pages = [
-        route('welcome'),
+        route('home'),
         route('about'),
         route('contact'),
         route('privacy'),

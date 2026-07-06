@@ -514,7 +514,7 @@
                 </form>
 
                 <div class="back-link">
-                    <a href="{{ route('welcome') }}">
+                    <a href="{{ route('connect') }}">
                         <i class="bi bi-arrow-left"></i> Annuler et revenir à l'accueil
                     </a>
                 </div>

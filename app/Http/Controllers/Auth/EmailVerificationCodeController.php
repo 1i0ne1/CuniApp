@@ -61,7 +61,7 @@ class EmailVerificationCodeController extends Controller
         $throttleKey = 'verify_code:' . strtolower($email);
         if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
             $seconds = RateLimiter::availableIn($throttleKey);
-            return redirect()->route('welcome')
+            return redirect()->route('connect')
                 ->with('verification_pending', true)
                 ->with('verification_email', $email)
                 ->withErrors(['code' => "Trop de tentatives. Veuillez réessayer dans {$seconds} secondes."]);
@@ -71,7 +71,7 @@ class EmailVerificationCodeController extends Controller
 
         if (!$storedCode || $storedCode !== $code) {
             RateLimiter::hit($throttleKey, 600);
-            return redirect()->route('welcome')
+            return redirect()->route('connect')
                 ->with('verification_pending', true)
                 ->with('verification_email', $email)
                 ->withErrors(['code' => 'Code incorrect ou expiré. Veuillez demander un nouveau code.']);
@@ -145,7 +145,7 @@ class EmailVerificationCodeController extends Controller
                 $user->email_verified_at = now();
                 $user->save();
             } else {
-                return redirect()->route('welcome')
+                return redirect()->route('connect')
                     ->with('verification_pending', true)
                     ->with('verification_email', $email)
                     ->withErrors(['email' => 'Données d\'inscription introuvables. Veuillez vous réinscrire.']);

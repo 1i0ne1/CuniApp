@@ -17,7 +17,7 @@ class CheckFirmAdmin
         // Check if firm is banned
         if ($request->user()->firm && $request->user()->firm->isBanned()) {
             auth()->logout();
-            return redirect()->route('welcome')
+            return redirect()->route('connect')
                 ->withErrors(['error' => 'Votre entreprise a été suspendue. Contactez le support.']);
         }
 

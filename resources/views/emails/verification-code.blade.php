@@ -76,7 +76,7 @@
                 <p style="color: #6b7280; font-size: 13px; margin-bottom: 16px;">
                     Ou retournez sur la page d'accueil pour saisir votre code
                 </p>
-                <a href="{{ route('welcome') }}" class="cta-button">
+                <a href="{{ route('connect') }}" class="cta-button">
                     Retour à la vérification
                 </a>
             </div>
@@ -91,7 +91,7 @@
             <p>&copy; {{ date('Y') }} CuniApp Élevage - Tous droits réservés</p>
             <p>
                 <a href="{{ config('app.url') }}">Visiter notre site</a> • 
-                <a href="{{ route('welcome') }}">Se connecter</a> • 
+                <a href="{{ route('connect') }}">Se connecter</a> • 
                 <a href="mailto:{{ config('mail.from.address') }}">Contact</a>
             </p>
             <div class="social-links">
