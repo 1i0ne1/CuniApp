@@ -261,9 +261,9 @@
 
 <body>
     <!-- Back Button -->
-    <a href="{{ route('home') }}" class="back-btn" title="{{ __('Retour à l'accueil') }}">
+    <a href="{{ route('home') }}" class="back-btn" title="Retour">
         <i class="bi bi-arrow-left"></i>
-        <span>{{ __('Retour à l\'accueil') }}</span>
+        <span>{{ __('Retour') }}</span>
     </a>
 
     <!-- Navbar -->
@@ -427,7 +427,7 @@
                             <img src="{{ asset('images/rabbits_4.png') }}" alt="CuniApp">
                             <div class="hero-slideshow-overlay"></div>
                             <div class="hero-slideshow-text">
-                                <h3>{{ __('Votre Hub de Gestion d\'Élevage') }}</h3>
+                                <h3>{{ __("Votre Hub de Gestion d'Élevage") }}</h3>
                                 <p>{{ __('Gestion intelligente de votre cheptel') }}</p>
                             </div>
                         </div>
@@ -460,7 +460,7 @@
                 <div class="feature-card"><div class="feature-icon"><i class="bi bi-clipboard2-pulse"></i></div><h3 class="feature-title">{{ __('Gestion des Naissances') }}</h3><p class="feature-description">{{ __('Enregistrez les mises bas, suivez la mortalité et monitorer la croissance de vos lapereaux.') }}</p></div>
                 <div class="feature-card"><div class="feature-icon"><i class="bi bi-rabbit"></i></div><h3 class="feature-title">{{ __('Inventaire Complet') }}</h3><p class="feature-description">{{ __('Base de données détaillée de tous vos lapins avec codes uniques, photos et historique médical.') }}</p></div>
                 <div class="feature-card"><div class="feature-icon"><i class="bi bi-bar-chart-line"></i></div><h3 class="feature-title">{{ __('Tableau de Bord Intelligent') }}</h3><p class="feature-description">{{ __('Statistiques en temps réel, graphiques de performance et indicateurs clés pour vos décisions.') }}</p></div>
-                <div class="feature-card"><div class="feature-icon"><i class="bi bi-currency-exchange"></i></div><h3 class="feature-title">{{ __('Gestion des Ventes') }}</h3><p class="feature-description">{{ __('Suivez vos ventes, générez des factures et gérez les paiements en un clin d\'œil.') }}</p></div>
+                <div class="feature-card"><div class="feature-icon"><i class="bi bi-currency-exchange"></i></div><h3 class="feature-title">{{ __('Gestion des Ventes') }}</h3><p class="feature-description">{{ __("Suivez vos ventes, générez des factures et gérez les paiements en un clin d'œil.") }}</p></div>
                 <div class="feature-card"><div class="feature-icon"><i class="bi bi-shield-lock"></i></div><h3 class="feature-title">{{ __('Sécurisé & Fiable') }}</h3><p class="feature-description">{{ __('Sécurité de niveau entreprise avec sauvegardes automatiques et vérification par email.') }}</p></div>
             </div>
         </div>
@@ -480,19 +480,33 @@
                 @php $plans = \App\Models\SubscriptionPlan::where('is_active', true)->orderBy('duration_months')->get(); @endphp
                 @foreach ($plans as $plan)
                     <div class="pricing-card {{ $plan->duration_months === 12 ? 'popular' : '' }}">
-                        @if ($plan->duration_months === 12)<div class="pricing-popular-badge"><i class="bi bi-star-fill"></i> {{ __('Meilleure Offre') }}</div>@endif
+                            @if ($plan->duration_months === 12)
+                            <div class="pricing-popular-badge"><i class="bi bi-star-fill"></i> {{ __('Meilleure Offre') }}</div>
+                            @endif
                         <h3 class="pricing-name">{{ $plan->name }}</h3>
                         <div class="pricing-price">
                             <span class="pricing-amount">@if ($plan->price <= 0){{ __('Gratuit') }}@else{{ number_format($plan->price, 0, ',', ' ') }}@endif</span>
                             @if ($plan->price > 0)<span class="pricing-period">FCFA</span>@endif
                         </div>
                         <ul class="pricing-features">
-                            @if ($plan->duration_months > 0)<li class="pricing-feature"><i class="bi bi-check-circle-fill"></i><span>{{ $plan->duration_months }} {{ __('mois d\'accès') }}</span></li>
-                            @else<li class="pricing-feature"><i class="bi bi-check-circle-fill"></i><span>14 {{ __('jours d\'essai') }}</span></li>@endif
-                            <li class="pricing-feature"><i class="bi bi-check-circle-fill"></i><span>{{ __('Jusqu\'à') }} {{ $plan->max_users ?? 5 }} {{ __('utilisateurs') }}</span></li>
-                            @if (is_array($plan->features))@foreach (array_slice($plan->features, 0, 3) as $f)<li class="pricing-feature"><i class="bi bi-check-circle-fill"></i><span>{{ $f }}</span></li>@endforeach@endif
+                            @if ($plan->duration_months > 0)
+                            <li class="pricing-feature"><i class="bi bi-check-circle-fill"></i><span>{{ $plan->duration_months }} {{ __("mois d'accès") }}</span></li>
+                            @else
+                            <li class="pricing-feature"><i class="bi bi-check-circle-fill"></i><span>14 {{ __("jours d'essai") }}</span></li>
+                            @endif
+                            <li class="pricing-feature"><i class="bi bi-check-circle-fill"></i><span>{{ __("Jusqu'à") }} {{ $plan->max_users ?? 5 }} {{ __('utilisateurs') }}</span></li>
+                            @if (is_array($plan->features))
+                            @foreach (array_slice($plan->features, 0, 3) as $f)<li class="pricing-feature"><i class="bi bi-check-circle-fill"></i><span>{{ $f }}</span></li>
+                            @endforeach
+                            @endif
                         </ul>
-                        <a href="{{ route('connect') }}#register" class="pricing-cta">@if ($plan->price <= 0){{ __('Commencer l\'essai') }}@else{{ __('S\'abonner') }}@endif</a>
+                        <a href="{{ route('connect') }}#register" class="pricing-cta">
+                            @if ($plan->price <= 0)
+                                {{ __("Commencer l'essai") }}
+                            @else
+                                {{ __("S'abonner") }}
+                            @endif
+                        </a>
                     </div>
                 @endforeach
             </div>
@@ -509,7 +523,7 @@
                 <div class="cta-bg-blob-2"></div>
                 <div class="cta-content">
                     <h2 class="cta-title">{{ __('Prêt à moderniser votre élevage ?') }}</h2>
-                    <p class="cta-description">{{ __('Rejoignez des centaines d\'éleveurs qui utilisent déjà CuniApp pour optimiser leurs opérations. Commencez votre essai gratuit de 14 jours dès aujourd\'hui.') }}</p>
+                    <p class="cta-description">{{ __("Rejoignez des centaines d'éleveurs qui utilisent déjà CuniApp pour optimiser leurs opérations. Commencez votre essai gratuit de 14 jours dès aujourd'hui.") }}</p>
                     <div class="cta-buttons">
                         <a href="{{ route('connect') }}#register" class="btn-cta-primary">{{ __('Essai gratuit 14 jours') }}</a>
                         <a href="{{ route('connect') }}" class="btn-cta-secondary">{{ __('Se connecter') }}</a>
@@ -551,7 +565,7 @@
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4><i class="bi bi-briefcase"></i> {{ __('Gestion d\'Élevage') }}</h4>
+                    <h4><i class="bi bi-briefcase"></i> {{ __("Gestion d'Élevage") }}</h4>
                     <ul class="footer-links">
                         <li><a href="{{ route('connect') }}#register"><i class="bi bi-chevron-right"></i> {{ __('Suivi des Reproductions') }}</a></li>
                         <li><a href="{{ route('connect') }}#register"><i class="bi bi-chevron-right"></i> {{ __('Gestion des Naissances') }}</a></li>
