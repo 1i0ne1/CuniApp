@@ -186,7 +186,7 @@
         .welcome-content {
             display: flex;
             justify-content: center;
-            max-width: 600px;
+            max-width: 560px;
             width: 100%;
             align-items: center;
         }
@@ -362,7 +362,7 @@
         }
 
         .auth-forms {
-            padding: 28px 24px;
+            padding: 24px 20px;
         }
 
         .auth-form {
@@ -525,14 +525,42 @@
             color: var(--gray-700);
         }
 
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gray-700);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--primary);
+        }
+
         .theme-dark .back-btn {
-            background: rgba(15, 23, 42, 0.7);
-            border-color: rgba(77, 166, 255, 0.15);
-            color: var(--gray-600);
+            background: rgba(30, 40, 60, 0.8);
+            border-color: rgba(255, 255, 255, 0.15);
+            color: var(--gray-300);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
         }
 
         .theme-dark .back-btn:hover {
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(30, 40, 60, 0.95);
             color: var(--primary);
         }
 
@@ -1479,9 +1507,9 @@
 
 <body>
     <!-- Back Button -->
-    <a href="{{ route('home') }}" style="position:fixed;top:20px;left:20px;z-index:100;display:flex;align-items:center;gap:8px;padding:10px 18px;background:rgba(255,255,255,0.7);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(37,99,235,0.1);border-radius:100px;font-size:13px;font-weight:700;color:var(--gray-600);text-decoration:none;transition:all 0.3s ease;box-shadow:0 2px 8px rgba(0,0,0,0.06);" onmouseover="this.style.background='rgba(255,255,255,0.9)';this.style.color='var(--primary)'" onmouseout="this.style.background='rgba(255,255,255,0.7)';this.style.color='var(--gray-600)'">
+    <a href="{{ route('home') }}" class="back-btn" title="{{ __('Retour') }}">
         <i class="bi bi-arrow-left"></i>
-        <span>Retour</span>
+        <span>{{ __('Retour') }}</span>
     </a>
 
         <!-- Background Particles -->
