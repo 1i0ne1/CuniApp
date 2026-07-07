@@ -293,7 +293,8 @@
                 <a href="#profile" class="sidebar-link" data-section="profile"><i class="bi bi-person"></i> {{ __('Profil') }}</a>
                 <a href="#settings" class="sidebar-link" data-section="settings"><i class="bi bi-sliders"></i> {{ __('Paramètres') }}</a>
                 <a href="#notifications" class="sidebar-link" data-section="notifications"><i class="bi bi-bell"></i> {{ __('Notifications') }}</a>
-                <a href="#subscription" class="sidebar-link" data-section="subscription"><i class="bi bi-credit-card"></i> {{ __('Abonnement') }} <span class="sidebar-badge">付费</span></a>
+                <a href="#activities" class="sidebar-link" data-section="activities"><i class="bi bi-clock-history"></i> {{ __('Activités') }}</a>
+                <a href="#subscription" class="sidebar-link" data-section="subscription"><i class="bi bi-credit-card"></i> {{ __('Abonnement') }}</a>
                 <a href="#firm" class="sidebar-link" data-section="firm"><i class="bi bi-building"></i> {{ __('Entreprise') }}</a>
             </div>
         </aside>
@@ -437,6 +438,17 @@
                     <h3><i class="bi bi-search"></i> {{ __('Vue d\'ensemble du cheptel') }}</h3>
                     <p>{{ __('La section "Tous les Lapins" vous donne une vue complète de l\'ensemble de votre cheptel, mâles et femelles confondus. Vous pouvez filtrer par type, race, état et recherche par code ou nom.') }}</p>
                 </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-info-circle"></i> {{ __('Détails d\'un lapereau') }}</h3>
+                    <p>{{ __('En cliquant sur un lapereau issu d\'une naissance, vous accédez à sa fiche détaillée contenant :') }}</p>
+                    <ul class="guide-steps">
+                        <li><span class="step-num">•</span> {{ __('Informations générales : code, nom, sexe, poids à la naissance.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('État de santé et état actuel (vivant, vendu, décédé).') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Historique de vaccination complet avec rappels.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Traçabilité : mère (femelle), père (mâle), date de naissance.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Observations et notes personnelles.') }}</li>
+                    </ul>
+                </div>
             </section>
 
             <!-- Saillies -->
@@ -481,6 +493,28 @@
                         <li><span class="step-num">5</span> {{ __('Les lapereaux seront automatiquement ajoutés à votre cheptel.') }}</li>
                     </ol>
                 </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-pencil-square"></i> {{ __('Modifier une naissance') }}</h3>
+                    <p>{{ __('Vous pouvez modifier une naissance existante pour mettre à jour les informations des lapereaux : poids à la naissance, état de santé, sexe, et vaccinations. Chaque lapereau peut recevoir plusieurs vaccins avec dates, doses et rappels.') }}</p>
+                    <div class="guide-tip">
+                        <i class="bi bi-lightbulb"></i>
+                        <div><strong>{{ __('Astuce') }}:</strong> {{ __('Le sexe des lapereaux peut être vérifié et défini lors de la modification d\'une naissance, généralement après quelques semaines.') }}</div>
+                    </div>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-shield-plus"></i> {{ __('Vaccination des lapereaux') }}</h3>
+                    <p>{{ __('Lors de l\'enregistrement ou de la modification d\'une naissance, vous pouvez ajouter des vaccins pour chaque lapereau :') }}</p>
+                    <ul class="guide-steps">
+                        <li><span class="step-num">•</span> {{ __('Sélectionnez le type de vaccin (Myxomatose, VHD, Pasteurellose, etc.).') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Indiquez la date d\'administration et le numéro de dose.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Planifiez une date de rappel pour la prochaine dose.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Ajoutez des notes si nécessaire.') }}</li>
+                    </ul>
+                    <div class="guide-tip">
+                        <i class="bi bi-info-circle"></i>
+                        <div>{{ __('Les lapereaux sans vaccin sont affichés avec un badge "Non vacciné". Un compteur de vaccination s\'affiche dans le détail de chaque portée.') }}</div>
+                    </div>
+                </div>
             </section>
 
             <!-- Mises Bas -->
@@ -506,14 +540,27 @@
                     <ol class="guide-steps">
                         <li><span class="step-num">1</span> {{ __('Accédez à la section "Ventes".') }}</li>
                         <li><span class="step-num">2</span> {{ __('Cliquez sur "Nouvelle vente".') }}</li>
-                        <li><span class="step-num">3</span> {{ __('Sélectionnez le(s) lapin(s) à vendre.') }}</li>
+                        <li><span class="step-num">3</span> {{ __('Sélectionnez le(s) lapin(s) à vendre depuis la liste déroulante.') }}</li>
                         <li><span class="step-num">4</span> {{ __('Renseignez le prix, le mode de paiement et les informations du client.') }}</li>
                         <li><span class="step-num">5</span> {{ __('Enregistrez la vente. Une facture sera générée automatiquement.') }}</li>
                     </ol>
                 </div>
                 <div class="guide-card" data-searchable>
                     <h3><i class="bi bi-cash-stack"></i> {{ __('Suivi des paiements') }}</h3>
-                    <p>{{ __('Vous pouvez marquer une vente comme payée, enregistrer des paiements partiels ou changer le statut de paiement directement depuis la liste des ventes.') }}</p>
+                    <p>{{ __('Vous pouvez gérer les paiements de différentes manières :') }}</p>
+                    <ul class="guide-steps">
+                        <li><span class="step-num">•</span> {{ __('Marquer une vente comme payée intégralement.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Enregistrer des paiements partiels avec le montant versé.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Changer le statut de paiement (en attente, partiellement payé, payé).') }}</li>
+                    </ul>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-list-check"></i> {{ __('Opérations groupées') }}</h3>
+                    <p>{{ __('La section ventes propose des actions groupées pour gagner du temps :') }}</p>
+                    <ul class="guide-steps">
+                        <li><span class="step-num">•</span> <strong>{{ __('Suppression multiple') }}</strong> — {{ __('Sélectionnez plusieurs ventes et supprimez-les en une seule action.') }}</li>
+                        <li><span class="step-num">•</span> <strong>{{ __('Exportation') }}</strong> — {{ __('Exportez la liste de vos ventes au format CSV pour analyse externe.') }}</li>
+                    </ul>
                 </div>
             </section>
 
@@ -547,8 +594,16 @@
                     <ul class="guide-steps">
                         <li><span class="step-num">•</span> {{ __('Votre nom et photo de profil.') }}</li>
                         <li><span class="step-num">•</span> {{ __('Votre adresse email.') }}</li>
-                        <li><span class="step-num">•</span> {{ __('Votre mot de passe.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Votre mot de passe actuel et nouveau mot de passe.') }}</li>
                     </ul>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-trash"></i> {{ __('Supprimer mon compte') }}</h3>
+                    <p>{{ __('Vous pouvez supprimer votre compte depuis la page profil. Cette action est irréversible : toutes vos données seront définitivement effacées après un délai de 30 jours.') }}</p>
+                    <div class="guide-tip">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        <div><strong>{{ __('Attention') }}:</strong> {{ __('Avant de supprimer votre compte, assurez-vous d\'avoir exporté vos données si nécessaire.') }}</div>
+                    </div>
                 </div>
             </section>
 
@@ -570,6 +625,10 @@
                     <h3><i class="bi bi-download"></i> {{ __('Exportation des données') }}</h3>
                     <p>{{ __('Vous pouvez exporter l\'ensemble de vos données au format JSON depuis les paramètres. Cette fonctionnalité est utile pour les sauvegardes ou la migration.') }}</p>
                 </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-trash3"></i> {{ __('Vider le cache') }}</h3>
+                    <p>{{ __('Si l\'application semble lente ou affiche des données obsolètes, vous pouvez vider le cache depuis les paramètres. Cela force le rechargement des données depuis le serveur.') }}</p>
+                </div>
             </section>
 
             <!-- Notifications -->
@@ -581,6 +640,23 @@
                 <div class="guide-card" data-searchable>
                     <h3><i class="bi bi-bell-ring"></i> {{ __('Centre de notifications') }}</h3>
                     <p>{{ __('Le centre de notifications vous alerte des événements importants : rappels de palpation, abonnement expiration, activités récentes. Vous pouvez marquer les notifications comme lues ou les supprimer.') }}</p>
+                </div>
+            </section>
+
+            <!-- Activities -->
+            <section class="guide-section" id="activities" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-clock-history"></i></div>
+                    <h2>{{ __('Activités') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-journal-text"></i> {{ __('Journal d\'activités') }}</h3>
+                    <p>{{ __('La section "Activités" affiche un historique chronologique de toutes les actions effectuées dans l\'application : ajouts, modifications, suppressions de lapins, saillies, naissances, ventes, etc.') }}</p>
+                    <ul class="guide-steps">
+                        <li><span class="step-num">•</span> {{ __('Consultez les activités récentes depuis le tableau de bord ou la section dédiée.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Filtrez par type d\'activité pour retrouver une action spécifique.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Supprimez une entrée du journal si nécessaire.') }}</li>
+                    </ul>
                 </div>
             </section>
 

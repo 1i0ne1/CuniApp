@@ -528,10 +528,13 @@
                     <div class="hero-illustration-bg-2"></div>
                     <div class="hero-card">
                         <div class="hero-slideshow" id="heroSlideshow">
-                            <img src="{{ asset('images/rabbits.png') }}" alt="CuniApp" class="active">
+                            <img src="{{ asset('images/rabbits_1.png') }}" alt="CuniApp" class="active">
                             <img src="{{ asset('images/rabbits_2.png') }}" alt="CuniApp">
-                            <img src="{{ asset('images/rabbits_3.png') }}" alt="CuniApp">
                             <img src="{{ asset('images/rabbits_4.png') }}" alt="CuniApp">
+                            <img src="{{ asset('images/rabbits_5.png') }}" alt="CuniApp">
+                            <img src="{{ asset('images/rabbits_6.png') }}" alt="CuniApp">
+                            <img src="{{ asset('images/rabbits_7.png') }}" alt="CuniApp">
+                            <img src="{{ asset('images/rabbits_8.png') }}" alt="CuniApp">
                             <div class="hero-slideshow-overlay"></div>
                             <div class="hero-slideshow-text">
                                 <h3>{{ __("Votre Hub de Gestion d'Élevage") }}</h3>
