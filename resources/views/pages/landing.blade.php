@@ -261,6 +261,109 @@
             .features-section,.pricing-section{padding:64px 16px;}
             .section-title{font-size:24px;}
         }
+
+        /* Guide CTA Section */
+        .guide-cta-section {
+            position: relative;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--surface) 0%, rgba(37,99,235,0.04) 50%, var(--surface-alt) 100%);
+            border: 1px solid var(--surface-border);
+        }
+        .theme-dark .guide-cta-section {
+            background: linear-gradient(135deg, var(--surface-alt) 0%, rgba(37,99,235,0.08) 50%, var(--surface) 100%);
+        }
+        .guide-cta-glow {
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: glowPulse 4s ease-in-out infinite;
+        }
+        .guide-cta-glow-2 {
+            top: auto;
+            right: auto;
+            bottom: -60px;
+            left: -60px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(6,182,212,0.1) 0%, transparent 70%);
+            animation-delay: -2s;
+        }
+        .guide-cta-svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        .theme-dark .guide-cta-svg { opacity: 0.8; }
+        .guide-cta-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        .guide-cta-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-subtle);
+            border: 1px solid rgba(37,99,235,0.2);
+            border-radius: 100px;
+            padding: 8px 18px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+        .guide-cta-badge i { font-size: 16px; }
+        .guide-cta-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+        @media(max-width:768px) { .guide-cta-title { font-size: 24px; } }
+        .guide-cta-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+        .guide-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--white);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(37,99,235,0.3);
+        }
+        .guide-cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(37,99,235,0.45);
+        }
+        .guide-cta-btn i { transition: transform 0.3s ease; font-size: 18px; }
+        .guide-cta-btn:hover i { transform: translateX(4px); }
     </style>
 </head>
 
@@ -508,6 +611,51 @@
                         </a>
                     </div>
                 @endforeach
+            </div>
+        </div>
+    </div>
+
+    <div class="section-divider"><div class="section-divider-line"></div></div>
+
+    <!-- Guide CTA -->
+    <div class="section-reveal">
+        <div class="guide-cta-section">
+            <div class="guide-cta-glow"></div>
+            <div class="guide-cta-glow guide-cta-glow-2"></div>
+            <svg class="guide-cta-svg" viewBox="0 0 1200 300" fill="none" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                    <linearGradient id="guide-line-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="var(--primary)" stop-opacity="0"/>
+                        <stop offset="50%" stop-color="var(--primary)" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="var(--accent-cyan)" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+                <line x1="0" y1="80" x2="1200" y2="80" stroke="url(#guide-line-grad)" stroke-width="1">
+                    <animate attributeName="x1" values="-200;1400" dur="6s" repeatCount="indefinite"/>
+                    <animate attributeName="x2" values="0;1600" dur="6s" repeatCount="indefinite"/>
+                </line>
+                <line x1="0" y1="150" x2="1200" y2="150" stroke="url(#guide-line-grad)" stroke-width="0.8">
+                    <animate attributeName="x1" values="1400;-200" dur="8s" repeatCount="indefinite"/>
+                    <animate attributeName="x2" values="1600;0" dur="8s" repeatCount="indefinite"/>
+                </line>
+                <line x1="0" y1="220" x2="1200" y2="220" stroke="url(#guide-line-grad)" stroke-width="0.6">
+                    <animate attributeName="x1" values="-300;1500" dur="7s" repeatCount="indefinite"/>
+                    <animate attributeName="x2" values="-100;1300" dur="7s" repeatCount="indefinite"/>
+                </line>
+                <circle r="3" fill="var(--primary)" opacity="0.3"><animate attributeName="cx" values="0;1200" dur="5s" repeatCount="indefinite"/><animate attributeName="cy" values="80;80" dur="5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;0.5;0" dur="5s" repeatCount="indefinite"/></circle>
+                <circle r="2.5" fill="var(--accent-cyan)" opacity="0.25"><animate attributeName="cx" values="1200;0" dur="7s" repeatCount="indefinite"/><animate attributeName="cy" values="150;150" dur="7s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;0.4;0" dur="7s" repeatCount="indefinite"/></circle>
+            </svg>
+            <div class="guide-cta-content">
+                <div class="guide-cta-badge">
+                    <i class="bi bi-book-half"></i>
+                    <span>{{ __('Documentation') }}</span>
+                </div>
+                <h2 class="guide-cta-title">{{ __('Besoin d\'aide ? Consultez notre guide') }}</h2>
+                <p class="guide-cta-desc">{{ __('Découvrez comment tirer le meilleur parti de CuniApp avec notre documentation complète. Tutoriels, guides pas à pas et conseils d\'utilisation.') }}</p>
+                <a href="{{ route('guide') }}" class="guide-cta-btn">
+                    <i class="bi bi-arrow-right-circle"></i>
+                    <span>{{ __('Accéder au Guide') }}</span>
+                </a>
             </div>
         </div>
     </div>

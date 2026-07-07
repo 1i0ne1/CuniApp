@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ __('Guide d\'utilisation') }} - CuniApp {{ __('Élevage') }}</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/icon.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        :root {
+            --primary: #2563EB; --primary-light: #3B82F6; --primary-dark: #1D4ED8; --primary-subtle: #EFF6FF;
+            --accent-cyan: #06B6D4; --accent-green: #10B981; --accent-orange: #F59E0B; --accent-red: #EF4444;
+            --white: #FFFFFF; --gray-50: #F9FAFB; --gray-100: #F3F4F6; --gray-200: #E5E7EB; --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF; --gray-500: #6B7280; --gray-600: #4B5563; --gray-700: #374151; --gray-800: #1F2937; --gray-900: #111827;
+            --surface: #FFFFFF; --surface-alt: #F9FAFB; --surface-border: #E5E7EB;
+            --text-primary: #1F2937; --text-secondary: #6B7280; --text-tertiary: #9CA3AF;
+            --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05); --shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1); --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --radius: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 20px; --radius-2xl: 24px;
+            --sidebar-w: 280px;
+        }
+        .theme-dark {
+            --surface: #0A0F1D; --surface-alt: #0F172A; --surface-elevated: #151E30; --surface-overlay: #1E293B;
+            --surface-border: #25324A; --text-primary: #E6E9F0; --text-secondary: #A3B3C6; --text-tertiary: #6B7D95;
+            --primary: #4DA6FF; --primary-subtle: rgba(77,166,255,0.12); --accent-green: #34D399;
+            --accent-orange: #FB923C; --accent-red: #F87171; --gray-50: #080C15; --gray-100: #0F172A;
+            --gray-200: #1A2335; --gray-300: #25324A; --gray-400: #4A5568; --gray-500: #718096;
+            --gray-600: #A0AEC0; --gray-700: #CBD5E0; --gray-800: #E2E8F0; --gray-900: #F7FAFC;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; background:var(--gray-50); color:var(--text-primary); line-height:1.6; overflow-x:hidden; }
+        .theme-dark body { background:var(--gray-50); color:var(--text-primary); }
+
+        /* Top Bar */
+        .guide-topbar {
+            position:sticky; top:0; z-index:100;
+            background:var(--surface); border-bottom:1px solid var(--surface-border);
+            backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+        }
+        .topbar-inner {
+            max-width:1400px; margin:0 auto; padding:0 24px; height:64px;
+            display:flex; align-items:center; justify-content:space-between; gap:20px;
+        }
+        .topbar-brand { display:flex; align-items:center; gap:12px; text-decoration:none; flex-shrink:0; }
+        .topbar-logo {
+            width:38px; height:38px; background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+            border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center;
+            box-shadow:0 4px 12px rgba(37,99,235,0.3);
+        }
+        .topbar-logo svg { width:20px; height:20px; }
+        .topbar-brand-text { font-size:18px; font-weight:700; color:var(--text-primary); letter-spacing:-0.02em; }
+        .topbar-brand-text span { color:var(--primary); }
+
+        /* Search */
+        .search-wrapper {
+            flex:1; max-width:520px; position:relative;
+        }
+        .search-input {
+            width:100%; padding:10px 16px 10px 42px; font-size:14px; font-family:inherit;
+            border:2px solid var(--surface-border); border-radius:var(--radius-lg);
+            background:var(--surface-alt); color:var(--text-primary);
+            transition:all 0.3s ease; outline:none;
+        }
+        .search-input:focus { border-color:var(--primary); background:var(--surface); box-shadow:0 0 0 4px var(--primary-subtle); }
+        .search-input::placeholder { color:var(--text-tertiary); }
+        .search-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-tertiary); font-size:16px; pointer-events:none; }
+        .search-kbd {
+            position:absolute; right:12px; top:50%; transform:translateY(-50%);
+            font-size:11px; font-family:'JetBrains Mono',monospace; color:var(--text-tertiary);
+            background:var(--surface); border:1px solid var(--surface-border); border-radius:4px;
+            padding:2px 6px; pointer-events:none;
+        }
+
+        .topbar-actions { display:flex; align-items:center; gap:12px; flex-shrink:0; }
+        .topbar-link {
+            font-size:13px; font-weight:500; color:var(--text-secondary); text-decoration:none;
+            padding:8px 14px; border-radius:var(--radius); transition:all 0.2s ease;
+            display:flex; align-items:center; gap:6px;
+        }
+        .topbar-link:hover { color:var(--primary); background:var(--primary-subtle); }
+        .mobile-menu-btn {
+            display:none; background:none; border:none; font-size:22px; color:var(--text-secondary);
+            cursor:pointer; padding:8px; border-radius:var(--radius);
+        }
+        .mobile-menu-btn:hover { background:var(--gray-100); color:var(--primary); }
+
+        /* Layout */
+        .guide-layout {
+            display:flex; max-width:1400px; margin:0 auto; min-height:calc(100vh - 64px);
+        }
+
+        /* Sidebar */
+        .guide-sidebar {
+            width:var(--sidebar-w); flex-shrink:0; border-right:1px solid var(--surface-border);
+            background:var(--surface); position:sticky; top:64px; height:calc(100vh - 64px);
+            overflow-y:auto; padding:24px 0; transition:transform 0.3s ease;
+        }
+        .sidebar-section { margin-bottom:8px; }
+        .sidebar-section-title {
+            font-size:11px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase;
+            letter-spacing:0.08em; padding:8px 24px; display:flex; align-items:center; gap:8px;
+        }
+        .sidebar-section-title i { font-size:13px; color:var(--primary); }
+        .sidebar-link {
+            display:flex; align-items:center; gap:10px; padding:9px 24px; font-size:13px; font-weight:500;
+            color:var(--text-secondary); text-decoration:none; transition:all 0.2s ease; border-left:3px solid transparent;
+        }
+        .sidebar-link:hover { color:var(--primary); background:var(--primary-subtle); }
+        .sidebar-link.active { color:var(--primary); background:var(--primary-subtle); border-left-color:var(--primary); font-weight:600; }
+        .sidebar-link i { font-size:15px; width:20px; text-align:center; flex-shrink:0; }
+        .sidebar-badge {
+            font-size:10px; font-weight:700; padding:2px 7px; border-radius:10px;
+            background:rgba(16,185,129,0.12); color:var(--accent-green); margin-left:auto;
+        }
+
+        /* Main Content */
+        .guide-main {
+            flex:1; min-width:0; padding:40px 48px 80px;
+        }
+        .guide-hero {
+            text-align:center; padding:48px 0 40px; border-bottom:1px solid var(--surface-border); margin-bottom:40px;
+        }
+        .guide-hero-badge {
+            display:inline-flex; align-items:center; gap:8px; background:var(--primary-subtle);
+            border:1px solid rgba(37,99,235,0.2); border-radius:100px; padding:6px 16px;
+            font-size:12px; font-weight:600; color:var(--primary); margin-bottom:16px;
+        }
+        .guide-hero-badge i { font-size:14px; }
+        .guide-hero h1 {
+            font-size:36px; font-weight:700; color:var(--text-primary); margin-bottom:12px; letter-spacing:-0.02em;
+        }
+        .guide-hero p { font-size:16px; color:var(--text-secondary); max-width:560px; margin:0 auto; }
+
+        /* Guide Sections */
+        .guide-section { margin-bottom:48px; scroll-margin-top:80px; }
+        .guide-section-header {
+            display:flex; align-items:center; gap:12px; margin-bottom:20px; padding-bottom:12px;
+            border-bottom:2px solid var(--primary-subtle);
+        }
+        .guide-section-icon {
+            width:40px; height:40px; border-radius:var(--radius-md); background:var(--primary-subtle);
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+        }
+        .guide-section-icon i { font-size:18px; color:var(--primary); }
+        .guide-section-header h2 { font-size:22px; font-weight:700; color:var(--text-primary); }
+        .guide-card {
+            background:var(--surface); border:1px solid var(--surface-border); border-radius:var(--radius-lg);
+            padding:24px; margin-bottom:16px; transition:all 0.2s ease;
+        }
+        .guide-card:hover { box-shadow:var(--shadow-md); border-color:rgba(37,99,235,0.15); }
+        .guide-card h3 {
+            font-size:16px; font-weight:600; color:var(--text-primary); margin-bottom:12px;
+            display:flex; align-items:center; gap:8px;
+        }
+        .guide-card h3 i { color:var(--primary); font-size:16px; }
+        .guide-card p { font-size:14px; color:var(--text-secondary); line-height:1.7; margin-bottom:12px; }
+        .guide-card p:last-child { margin-bottom:0; }
+        .guide-steps { list-style:none; padding:0; margin:12px 0; }
+        .guide-steps li {
+            display:flex; align-items:flex-start; gap:12px; padding:10px 0;
+            font-size:14px; color:var(--text-secondary); line-height:1.6;
+        }
+        .guide-steps li .step-num {
+            width:24px; height:24px; border-radius:50%; background:var(--primary-subtle);
+            color:var(--primary); font-size:12px; font-weight:700;
+            display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
+        }
+        .guide-tip {
+            background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(6,182,212,0.04));
+            border:1px solid rgba(16,185,129,0.15); border-radius:var(--radius-md);
+            padding:14px 18px; margin:12px 0; font-size:13px; color:var(--text-secondary);
+            display:flex; align-items:flex-start; gap:10px;
+        }
+        .guide-tip i { color:var(--accent-green); font-size:16px; margin-top:1px; flex-shrink:0; }
+        .guide-tip strong { color:var(--text-primary); }
+        .guide-code {
+            font-family:'JetBrains Mono',monospace; font-size:13px; background:var(--gray-100);
+            border:1px solid var(--surface-border); border-radius:var(--radius); padding:12px 16px;
+            margin:12px 0; overflow-x:auto; color:var(--text-primary); line-height:1.5;
+        }
+        .theme-dark .guide-code { background:var(--surface-elevated); }
+
+        /* Search Results Highlight */
+        .search-highlight { background:rgba(245,158,11,0.2); border-radius:2px; padding:0 2px; }
+        .guide-section.search-hidden { display:none; }
+        .guide-card.search-hidden { display:none; }
+        .no-results { text-align:center; padding:60px 20px; color:var(--text-tertiary); }
+        .no-results i { font-size:48px; margin-bottom:16px; display:block; opacity:0.4; }
+
+        /* Back to top */
+        .back-to-top {
+            position:fixed; bottom:30px; right:30px; width:44px; height:44px; border-radius:50%;
+            background:linear-gradient(135deg,var(--primary),var(--primary-dark)); color:white; border:none;
+            box-shadow:0 8px 24px rgba(37,99,235,0.35); cursor:pointer; display:none;
+            align-items:center; justify-content:center; z-index:1000; transition:all 0.3s ease; font-size:20px;
+        }
+        .back-to-top:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(37,99,235,0.5); }
+        .back-to-top.show { display:flex; animation:fadeIn 0.3s ease; }
+
+        @keyframes fadeIn { from{opacity:0;transform:scale(0.8)} to{opacity:1;transform:scale(1)} }
+
+        /* Mobile Sidebar */
+        .sidebar-overlay {
+            display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:200;
+            backdrop-filter:blur(4px);
+        }
+        .sidebar-overlay.active { display:block; }
+
+        @media(max-width:1024px) {
+            .guide-sidebar {
+                position:fixed; top:64px; left:0; z-index:201;
+                transform:translateX(-100%); height:calc(100vh - 64px);
+                box-shadow:var(--shadow-lg);
+            }
+            .guide-sidebar.open { transform:translateX(0); }
+            .mobile-menu-btn { display:block; }
+            .guide-main { padding:24px 20px 60px; }
+            .guide-hero h1 { font-size:28px; }
+            .search-kbd { display:none; }
+        }
+        @media(max-width:640px) {
+            .topbar-brand-text { display:none; }
+            .guide-hero h1 { font-size:24px; }
+            .guide-hero p { font-size:14px; }
+        }
+
+        /* Scrollbar */
+        .guide-sidebar::-webkit-scrollbar { width:4px; }
+        .guide-sidebar::-webkit-scrollbar-track { background:transparent; }
+        .guide-sidebar::-webkit-scrollbar-thumb { background:var(--gray-300); border-radius:4px; }
+        .theme-dark .guide-sidebar::-webkit-scrollbar-thumb { background:var(--gray-600); }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <header class="guide-topbar">
+        <div class="topbar-inner">
+            <a href="{{ route('home') }}" class="topbar-brand">
+                <div class="topbar-logo">
+                    <svg viewBox="0 0 40 40" fill="none"><path d="M20 5L35 15V25L20 35L5 25V15L20 5Z" fill="white"/><path d="M20 12L28 17V23L20 28L12 23V17L20 12Z" fill="rgba(255,255,255,0.8)"/></svg>
+                </div>
+                <span class="topbar-brand-text">CuniApp <span>{{ __('Guide') }}</span></span>
+            </a>
+            <div class="search-wrapper">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" class="search-input" id="guideSearch" placeholder="{{ __('Rechercher dans la documentation...') }}" autocomplete="off">
+                <span class="search-kbd">Ctrl+K</span>
+            </div>
+            <div class="topbar-actions">
+                <a href="{{ route('home') }}" class="topbar-link"><i class="bi bi-arrow-left"></i> {{ __('Accueil') }}</a>
+                <a href="{{ route('connect') }}" class="topbar-link" style="background:var(--primary);color:white;border-radius:var(--radius);"><i class="bi bi-box-arrow-in-right"></i> {{ __('Connexion') }}</a>
+                <button class="mobile-menu-btn" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <div class="guide-layout">
+        <!-- Sidebar -->
+        <aside class="guide-sidebar" id="guideSidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title"><i class="bi bi-rocket-takeoff"></i> {{ __('Pour commencer') }}</div>
+                <a href="#introduction" class="sidebar-link active" data-section="introduction"><i class="bi bi-info-circle"></i> {{ __('Introduction') }}</a>
+                <a href="#getting-started" class="sidebar-link" data-section="getting-started"><i class="bi bi-play-circle"></i> {{ __('Premiers pas') }}</a>
+                <a href="#account-setup" class="sidebar-link" data-section="account-setup"><i class="bi bi-person-gear"></i> {{ __('Configuration du compte') }}</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title"><i class="bi bi-egg"></i> {{ __('Gestion du cheptel') }}</div>
+                <a href="#males" class="sidebar-link" data-section="males"><i class="bi bi-arrow-up-right-square"></i> {{ __('Mâles') }}</a>
+                <a href="#femelles" class="sidebar-link" data-section="femelles"><i class="bi bi-arrow-down-right-square"></i> {{ __('Femelles') }}</a>
+                <a href="#all-rabbits" class="sidebar-link" data-section="all-rabbits"><i class="bi bi-collection"></i> {{ __('Tous les Lapins') }}</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title"><i class="bi bi-heart"></i> {{ __('Reproduction') }}</div>
+                <a href="#saillies" class="sidebar-link" data-section="saillies"><i class="bi bi-heart-fill"></i> {{ __('Saillies') }}</a>
+                <a href="#naissances" class="sidebar-link" data-section="naissances"><i class="bi bi-egg-fill"></i> {{ __('Naissances') }}</a>
+                <a href="#mises-bas" class="sidebar-link" data-section="mises-bas"><i class="bi bi-clipboard2-pulse"></i> {{ __('Mises Bas') }}</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title"><i class="bi bi-cart"></i> {{ __('Commercial') }}</div>
+                <a href="#sales" class="sidebar-link" data-section="sales"><i class="bi bi-cart-check"></i> {{ __('Ventes') }}</a>
+                <a href="#invoices" class="sidebar-link" data-section="invoices"><i class="bi bi-receipt"></i> {{ __('Factures') }}</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title"><i class="bi bi-gear"></i> {{ __('Paramètres & Compte') }}</div>
+                <a href="#profile" class="sidebar-link" data-section="profile"><i class="bi bi-person"></i> {{ __('Profil') }}</a>
+                <a href="#settings" class="sidebar-link" data-section="settings"><i class="bi bi-sliders"></i> {{ __('Paramètres') }}</a>
+                <a href="#notifications" class="sidebar-link" data-section="notifications"><i class="bi bi-bell"></i> {{ __('Notifications') }}</a>
+                <a href="#subscription" class="sidebar-link" data-section="subscription"><i class="bi bi-credit-card"></i> {{ __('Abonnement') }} <span class="sidebar-badge">付费</span></a>
+                <a href="#firm" class="sidebar-link" data-section="firm"><i class="bi bi-building"></i> {{ __('Entreprise') }}</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="guide-main" id="guideContent">
+            <!-- Hero -->
+            <div class="guide-hero">
+                <div class="guide-hero-badge"><i class="bi bi-book-half"></i> {{ __('Documentation Officielle') }}</div>
+                <h1>{{ __('Guide d\'utilisation CuniApp') }}</h1>
+                <p>{{ __('Tout ce que vous devez savoir pour gérer efficacement votre élevage de lapins avec CuniApp.') }}</p>
+            </div>
+
+            <!-- Introduction -->
+            <section class="guide-section" id="introduction" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-info-circle"></i></div>
+                    <h2>{{ __('Introduction') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-book"></i> {{ __('Qu\'est-ce que CuniApp ?') }}</h3>
+                    <p>{{ __('CuniApp est une plateforme SaaS de gestion professionnelle d\'élevages cunicoles (lapins). Elle vous permet de suivre vos reproductions, gérer votre cheptel, émettre des factures et monitorer la performance de votre élevage depuis un tableau de bord unique.') }}</p>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-lightning"></i> {{ __('Fonctionnalités principales') }}</h3>
+                    <ul class="guide-steps">
+                        <li><span class="step-num">1</span> <div><strong>{{ __('Gestion du cheptel') }}</strong> — {{ __('Enregistrez et suivez tous vos lapins mâles et femelles avec leurs caractéristiques.') }}</div></li>
+                        <li><span class="step-num">2</span> <div><strong>{{ __('Suivi des reproductions') }}</strong> {{ __('— Enregistrez les saillies, palpations et suivez les gestations en temps réel.') }}</div></li>
+                        <li><span class="step-num">3</span> <div><strong>{{ __('Gestion des naissances') }}</strong> — {{ __('Enregistrez les mises bas, suivez la mortalité et monitorer la croissance.') }}</div></li>
+                        <li><span class="step-num">4</span> <div><strong>{{ __('Ventes & Facturation') }}</strong> — {{ __('Gérez vos ventes, émettez des factures PDF et suivez les paiements.') }}</div></li>
+                        <li><span class="step-num">5</span> <div><strong>{{ __('Tableau de bord') }}</strong> — {{ __('Visualisez les statistiques et indicateurs clés de votre élevage.') }}</div></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Getting Started -->
+            <section class="guide-section" id="getting-started" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-play-circle"></i></div>
+                    <h2>{{ __('Premiers pas') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-person-plus"></i> {{ __('Créer votre compte') }}</h3>
+                    <ol class="guide-steps">
+                        <li><span class="step-num">1</span> {{ __('Rendez-vous sur la page d\'accueil et cliquez sur "Commencer".') }}</li>
+                        <li><span class="step-num">2</span> {{ __('Remplissez le formulaire d\'inscription avec votre nom, email et mot de passe.') }}</li>
+                        <li><span class="step-num">3</span> {{ __('Acceptez les conditions d\'utilisation et cliquez sur "Créer mon compte".') }}</li>
+                        <li><span class="step-num">4</span> {{ __('Vérifiez votre boîte email et entrez le code de vérification reçu.') }}</li>
+                        <li><span class="step-num">5</span> {{ __('Configurez votre ferme (nom, description) lors de la première connexion.') }}</li>
+                    </ol>
+                    <div class="guide-tip">
+                        <i class="bi bi-lightbulb"></i>
+                        <div><strong>{{ __('Astuce') }}:</strong> {{ __('Un essai gratuit de 14 jours est offert à l\'inscription. Aucune carte bancaire n\'est requise.') }}</div>
+                    </div>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-google"></i> {{ __('Connexion avec Google') }}</h3>
+                    <p>{{ __('Vous pouvez également vous connecter ou vous inscrire via votre compte Google en cliquant sur le bouton "Continuer avec Google" sur la page de connexion. Votre compte sera automatiquement créé avec vos informations Google.') }}</p>
+                </div>
+            </section>
+
+            <!-- Account Setup -->
+            <section class="guide-section" id="account-setup" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-person-gear"></i></div>
+                    <h2>{{ __('Configuration du compte') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-building"></i> {{ __('Configuration de la ferme') }}</h3>
+                    <p>{{ __('Lors de votre première connexion, vous serez redirigé vers la page de configuration de votre ferme. Renseignez :') }}</p>
+                    <ul class="guide-steps">
+                        <li><span class="step-num">1</span> <div><strong>{{ __('Nom de la ferme') }}</strong> — {{ __('Le nom de votre exploitation.') }}</div></li>
+                        <li><span class="step-num">2</span> <div><strong>{{ __('Description') }}</strong> — {{ __('Une brève description de votre élevage (optionnel).') }}</div></li>
+                    </ul>
+                    <div class="guide-tip">
+                        <i class="bi bi-info-circle"></i>
+                        <div>{{ __('Vous pouvez modifier ces informations plus tard depuis la page "Mon Entreprise" dans les paramètres.') }}</div>
+                    </div>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-shield-lock"></i> {{ __('Changement de mot de passe') }}</h3>
+                    <p>{{ __('Si l\'administrateur vous a attribué un mot de passe temporaire, vous serez invité à le changer lors de votre première connexion. Le nouveau mot de passe doit contenir au moins 8 caractères.') }}</p>
+                </div>
+            </section>
+
+            <!-- Males -->
+            <section class="guide-section" id="males" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-arrow-up-right-square"></i></div>
+                    <h2>{{ __('Gestion des Mâles') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-plus-circle"></i> {{ __('Ajouter un mâle') }}</h3>
+                    <ol class="guide-steps">
+                        <li><span class="step-num">1</span> {{ __('Accédez à la section "Mâles" depuis le menu.') }}</li>
+                        <li><span class="step-num">2</span> {{ __('Cliquez sur "Nouveau mâle".') }}</li>
+                        <li><span class="step-num">3</span> {{ __('Remplissez les informations : code unique, nom, race, date de naissance, couleur, état de santé.') }}</li>
+                        <li><span class="step-num">4</span> {{ __('Cliquez sur "Enregistrer" pour ajouter le mâle à votre cheptel.') }}</li>
+                    </ol>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-list-ul"></i> {{ __('Gérer vos mâles') }}</h3>
+                    <p>{{ __('Depuis la liste des mâles, vous pouvez :') }}</p>
+                    <ul class="guide-steps">
+                        <li><span class="step-num">•</span> {{ __('Consulter les détails d\'un mâle en cliquant sur son nom.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Modifier les informations d\'un mâle existant.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Basculer l\'état du mâle (actif/inactif) depuis le bouton d\'action.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Supprimer un mâle (action irréversible).') }}</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Females -->
+            <section class="guide-section" id="femelles" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-arrow-down-right-square"></i></div>
+                    <h2>{{ __('Gestion des Femelles') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-plus-circle"></i> {{ __('Ajouter une femelle') }}</h3>
+                    <ol class="guide-steps">
+                        <li><span class="step-num">1</span> {{ __('Accédez à la section "Femelles" depuis le menu.') }}</li>
+                        <li><span class="step-num">2</span> {{ __('Cliquez sur "Nouvelle femelle".') }}</li>
+                        <li><span class="step-num">3</span> {{ __('Remplissez les informations : code unique, nom, race, date de naissance, couleur, lignée.') }}</li>
+                        <li><span class="step-num">4</span> {{ __('Cliquez sur "Enregistrer" pour ajouter la femelle à votre cheptel.') }}</li>
+                    </ol>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-clipboard2-pulse"></i> {{ __('Suivi reproductif des femelles') }}</h3>
+                    <p>{{ __('Chaque femelle dispose d\'un historique reproductif complet montrant ses saillies, gestations, naissances et performances. Accédez-y en cliquant sur le nom d\'une femelle puis sur l\'onglet "Historique".') }}</p>
+                </div>
+            </section>
+
+            <!-- All Rabbits -->
+            <section class="guide-section" id="all-rabbits" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-collection"></i></div>
+                    <h2>{{ __('Tous les Lapins') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-search"></i> {{ __('Vue d\'ensemble du cheptel') }}</h3>
+                    <p>{{ __('La section "Tous les Lapins" vous donne une vue complète de l\'ensemble de votre cheptel, mâles et femelles confondus. Vous pouvez filtrer par type, race, état et recherche par code ou nom.') }}</p>
+                </div>
+            </section>
+
+            <!-- Saillies -->
+            <section class="guide-section" id="saillies" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-heart-fill"></i></div>
+                    <h2>{{ __('Gestion des Saillies') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-plus-circle"></i> {{ __('Enregistrer une saillie') }}</h3>
+                    <ol class="guide-steps">
+                        <li><span class="step-num">1</span> {{ __('Accédez à la section "Saillies".') }}</li>
+                        <li><span class="step-num">2</span> {{ __('Cliquez sur "Nouvelle saillie".') }}</li>
+                        <li><span class="step-num">3</span> {{ __('Sélectionnez le mâle et la femelle concernés.') }}</li>
+                        <li><span class="step-num">4</span> {{ __('Indiquez la date de la saillie.') }}</li>
+                        <li><span class="step-num">5</span> {{ __('Enregistrez. La saillie apparaîtra dans l\'historique de la femelle.') }}</li>
+                    </ol>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-hand-index"></i> {{ __('Palpation') }}</h3>
+                    <p>{{ __('Après environ 14 jours, vous pouvez enregistrer le résultat de la palpation (vérification de la gestation) directement depuis la liste des saillies. Cliquez sur l\'icône de palpation à côté de la saillie concernée.') }}</p>
+                    <div class="guide-tip">
+                        <i class="bi bi-lightbulb"></i>
+                        <div><strong>{{ __('Conseil') }}:</strong> {{ __('Effectuez la palpation entre le 12ème et le 15ème jour après la saillie pour un résultat fiable.') }}</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Naissances -->
+            <section class="guide-section" id="naissances" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-egg-fill"></i></div>
+                    <h2>{{ __('Gestion des Naissances') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-plus-circle"></i> {{ __('Enregistrer une naissance') }}</h3>
+                    <ol class="guide-steps">
+                        <li><span class="step-num">1</span> {{ __('Accédez à la section "Naissances".') }}</li>
+                        <li><span class="step-num">2</span> {{ __('Cliquez sur "Nouvelle naissance".') }}</li>
+                        <li><span class="step-num">3</span> {{ __('Sélectionnez la femelle et la date de la mise bas.') }}</li>
+                        <li><span class="step-num">4</span> {{ __('Indiquez le nombre de lapereaux nés et le nombre de morts-nés.') }}</li>
+                        <li><span class="step-num">5</span> {{ __('Les lapereaux seront automatiquement ajoutés à votre cheptel.') }}</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Mises Bas -->
+            <section class="guide-section" id="mises-bas" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-clipboard2-pulse"></i></div>
+                    <h2>{{ __('Mises Bas') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-list-check"></i> {{ __('Suivi des mises bas') }}</h3>
+                    <p>{{ __('La section "Mises Bas" affiche toutes les naissances enregistrées avec leurs détails : femelle, date, nombre de lapereaux, mortalité. Vous pouvez modifier ou supprimer une mise bas depuis cette section.') }}</p>
+                </div>
+            </section>
+
+            <!-- Sales -->
+            <section class="guide-section" id="sales" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-cart-check"></i></div>
+                    <h2>{{ __('Gestion des Ventes') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-plus-circle"></i> {{ __('Enregistrer une vente') }}</h3>
+                    <ol class="guide-steps">
+                        <li><span class="step-num">1</span> {{ __('Accédez à la section "Ventes".') }}</li>
+                        <li><span class="step-num">2</span> {{ __('Cliquez sur "Nouvelle vente".') }}</li>
+                        <li><span class="step-num">3</span> {{ __('Sélectionnez le(s) lapin(s) à vendre.') }}</li>
+                        <li><span class="step-num">4</span> {{ __('Renseignez le prix, le mode de paiement et les informations du client.') }}</li>
+                        <li><span class="step-num">5</span> {{ __('Enregistrez la vente. Une facture sera générée automatiquement.') }}</li>
+                    </ol>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-cash-stack"></i> {{ __('Suivi des paiements') }}</h3>
+                    <p>{{ __('Vous pouvez marquer une vente comme payée, enregistrer des paiements partiels ou changer le statut de paiement directement depuis la liste des ventes.') }}</p>
+                </div>
+            </section>
+
+            <!-- Invoices -->
+            <section class="guide-section" id="invoices" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-receipt"></i></div>
+                    <h2>{{ __('Factures') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-file-earmark-pdf"></i> {{ __('Gestion des factures') }}</h3>
+                    <p>{{ __('Les factures sont générées automatiquement pour chaque vente. Depuis la section "Mes Factures", vous pouvez :') }}</p>
+                    <ul class="guide-steps">
+                        <li><span class="step-num">•</span> {{ __('Consulter le détail de chaque facture.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Télécharger une facture au format PDF.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Régénérer une facture si nécessaire.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Envoyer une facture par email au client.') }}</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Profile -->
+            <section class="guide-section" id="profile" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-person"></i></div>
+                    <h2>{{ __('Profil') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-pencil-square"></i> {{ __('Modifier votre profil') }}</h3>
+                    <p>{{ __('Accédez à votre profil depuis le menu utilisateur (coin supérieur droit) puis "Profil". Vous pouvez modifier :') }}</p>
+                    <ul class="guide-steps">
+                        <li><span class="step-num">•</span> {{ __('Votre nom et photo de profil.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Votre adresse email.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Votre mot de passe.') }}</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Settings -->
+            <section class="guide-section" id="settings" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-sliders"></i></div>
+                    <h2>{{ __('Paramètres') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-palette"></i> {{ __('Thème et préférences') }}</h3>
+                    <p>{{ __('Depuis les paramètres, vous pouvez personnaliser l\'apparence de l\'application :') }}</p>
+                    <ul class="guide-steps">
+                        <li><span class="step-num">•</span> {{ __('Thème clair / sombre / système.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Langue de l\'interface (Français / Anglais).') }}</li>
+                    </ul>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-download"></i> {{ __('Exportation des données') }}</h3>
+                    <p>{{ __('Vous pouvez exporter l\'ensemble de vos données au format JSON depuis les paramètres. Cette fonctionnalité est utile pour les sauvegardes ou la migration.') }}</p>
+                </div>
+            </section>
+
+            <!-- Notifications -->
+            <section class="guide-section" id="notifications" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-bell"></i></div>
+                    <h2>{{ __('Notifications') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-bell-ring"></i> {{ __('Centre de notifications') }}</h3>
+                    <p>{{ __('Le centre de notifications vous alerte des événements importants : rappels de palpation, abonnement expiration, activités récentes. Vous pouvez marquer les notifications comme lues ou les supprimer.') }}</p>
+                </div>
+            </section>
+
+            <!-- Subscription -->
+            <section class="guide-section" id="subscription" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-credit-card"></i></div>
+                    <h2>{{ __('Abonnement') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-star"></i> {{ __('Plans et tarifs') }}</h3>
+                    <p>{{ __('CuniApp propose plusieurs plans d\'abonnement adaptés à la taille de votre élevage. Consultez la page "Tarifs" depuis l\'accueil pour comparer les offres.') }}</p>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-arrow-repeat"></i> {{ __('Renouvellement et paiement') }}</h3>
+                    <p>{{ __('Les abonnements payants sont renouvelés automatiquement. Les paiements sont sécurisés via FedaPay et acceptent Mobile Money (MoMo, Moov). Vous pouvez gérer votre abonnement depuis la section "Mon Abonnement".') }}</p>
+                    <div class="guide-tip">
+                        <i class="bi bi-lightbulb"></i>
+                        <div><strong>{{ __('Astuce') }}:</strong> {{ __('Un badge orange s\'affiche sur le lien "Abonnement" si votre abonnement est expiré ou inactif.') }}</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Firm -->
+            <section class="guide-section" id="firm" data-searchable>
+                <div class="guide-section-header">
+                    <div class="guide-section-icon"><i class="bi bi-building"></i></div>
+                    <h2>{{ __('Gestion de l\'entreprise') }}</h2>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-people"></i> {{ __('Gestion des employés') }}</h3>
+                    <p>{{ __('En tant qu\'administrateur de ferme, vous pouvez inviter des collaborateurs à rejoindre votre entreprise. Chaque employé disposera de son propre compte avec accès aux données de la ferme.') }}</p>
+                    <ul class="guide-steps">
+                        <li><span class="step-num">1</span> {{ __('Accédez à "Mon Entreprise" depuis le menu.') }}</li>
+                        <li><span class="step-num">2</span> {{ __('Cliquez sur "Ajouter un employé".') }}</li>
+                        <li><span class="step-num">3</span> {{ __('Renseignez l\'email et le nom de l\'employé.') }}</li>
+                        <li><span class="step-num">4</span> {{ __('L\'employé recevra un email d\'invitation pour créer son compte.') }}</li>
+                    </ul>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-shield-check"></i> {{ __('Permissions') }}</h3>
+                    <p>{{ __('L\'administrateur de la ferme peut activer/désactiver les comptes employés et suivre leur activité. Seul l\'administrateur peut gérer les abonnements et les paramètres de l\'entreprise.') }}</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Back to Top -->
+    <button id="backToTop" class="back-to-top" title="{{ __('Retour en haut') }}"><i class="bi bi-arrow-up-short"></i></button>
+
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('guideSearch');
+        const sections = document.querySelectorAll('.guide-section');
+        const cards = document.querySelectorAll('.guide-card');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+            if (!query) {
+                sections.forEach(s => s.classList.remove('search-hidden'));
+                cards.forEach(c => c.classList.remove('search-hidden'));
+                document.querySelectorAll('.no-results').forEach(n => n.remove());
+                return;
+            }
+            let hasResults = false;
+            sections.forEach(section => {
+                const sectionText = section.textContent.toLowerCase();
+                const sectionCards = section.querySelectorAll('.guide-card');
+                let sectionHasMatch = false;
+                sectionCards.forEach(card => {
+                    const cardText = card.textContent.toLowerCase();
+                    if (cardText.includes(query)) {
+                        card.classList.remove('search-hidden');
+                        sectionHasMatch = true;
+                        hasResults = true;
+                    } else {
+                        card.classList.add('search-hidden');
+                    }
+                });
+                if (sectionText.includes(query) || sectionHasMatch) {
+                    section.classList.remove('search-hidden');
+                    hasResults = true;
+                } else {
+                    section.classList.add('search-hidden');
+                }
+            });
+            const existing = document.querySelector('.no-results');
+            if (existing) existing.remove();
+            if (!hasResults) {
+                const noResults = document.createElement('div');
+                noResults.className = 'no-results';
+                noResults.innerHTML = '<i class="bi bi-search"></i><p style="font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:8px;">Aucun résultat trouvé</p><p style="font-size:14px;">Essayez avec d\'autres mots-clés</p>';
+                document.getElementById('guideContent').appendChild(noResults);
+            }
+        });
+
+        // Ctrl+K shortcut
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        });
+
+        // Active sidebar link on scroll
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        const observerOptions = { rootMargin: '-80px 0px -60% 0px', threshold: 0 };
+        const sectionObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    sidebarLinks.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('data-section') === id);
+                    });
+                }
+            });
+        }, observerOptions);
+        sections.forEach(section => sectionObserver.observe(section));
+
+        // Mobile sidebar toggle
+        function toggleSidebar() {
+            document.getElementById('guideSidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        }
+
+        // Close sidebar on link click (mobile)
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) toggleSidebar();
+            });
+        });
+
+        // Back to top
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            backToTop.classList.toggle('show', window.scrollY > 300);
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Theme
+        const savedTheme = localStorage.getItem('cuniapp_theme') || 'system';
+        function applyTheme(theme) {
+            const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            document.documentElement.classList.toggle('theme-dark', isDark);
+        }
+        applyTheme(savedTheme);
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            applyTheme(localStorage.getItem('cuniapp_theme') || 'system');
+        });
+    </script>
+</body>
+</html>

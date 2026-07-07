@@ -66,6 +66,10 @@ Route::get('/contact', function () {
     return view('pages.contact');
 })->name('contact');
 
+Route::get('/guide', function () {
+    return view('pages.guide');
+})->name('guide');
+
 
 
 // ========================================================================
