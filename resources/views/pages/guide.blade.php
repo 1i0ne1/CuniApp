@@ -933,8 +933,10 @@
         </main>
     </div>
 
-    <!-- Footer (full width, outside guide layout) -->
-    @include('components.public-footer')
+    <!-- Footer (full width, outside guide layout, on top of sidebar) -->
+    <div style="position:relative;z-index:60;">
+        @include('components.public-footer')
+    </div>
 
     <!-- Back to Top -->
     <button id="backToTop" class="back-to-top" title="{{ __('Retour en haut') }}"><i class="bi bi-arrow-up-short"></i></button>
