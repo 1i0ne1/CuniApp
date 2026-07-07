@@ -371,7 +371,7 @@
                     </ul>
                 </div>
                 <div class="guide-card" data-searchable>
-                    <h3><i class="bi bi-building"></i> {{ __('Vue entreprise (administrateurs) }}</h3>
+                    <h3><i class="bi bi-building"></i> {{ __('Vue entreprise (administrateurs)') }}</h3>
                     <p>{{ __('Si vous êtes administrateur de ferme, le tableau de bord affiche également :') }}</p>
                     <ul class="guide-steps">
                         <li><span class="step-num">•</span> {{ __('Revenus totaux de l\'entreprise.') }}</li>
