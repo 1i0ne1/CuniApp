@@ -434,7 +434,17 @@
                 </div>
                 <div class="guide-card" data-searchable>
                     <h3><i class="bi bi-google"></i> {{ __('Connexion avec Google') }}</h3>
-                    <p>{{ __('Vous pouvez également vous connecter ou vous inscrire via votre compte Google en cliquant sur le bouton "Continuer avec Google" sur la page de connexion. Votre compte sera automatiquement créé avec vos informations Google.') }}</p>
+                    <p>{{ __('Vous pouvez également vous connecter ou vous inscrire via votre compte Google en cliquant sur le bouton "Continuer avec Google" sur la page de connexion.') }}</p>
+                    <p>{{ __('Si c\'est votre première connexion via Google, vous serez redirigé vers un formulaire pour compléter votre inscription :') }}</p>
+                    <ul class="guide-steps">
+                        <li><span class="step-num">•</span> {{ __('Choisissez un mot de passe pour votre compte CuniApp.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Acceptez les conditions d\'utilisation.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Configurez votre ferme lors de la première connexion.') }}</li>
+                    </ul>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-key"></i> {{ __('Changement de mot de passe forcé') }}</h3>
+                    <p>{{ __('Si un administrateur vous a attribué un mot de passe temporaire, vous serez obligé de le changer lors de votre première connexion. Le nouveau mot de passe doit contenir au moins 8 caractères.') }}</p>
                 </div>
                 <div class="guide-card" data-searchable>
                     <h3><i class="bi bi-key"></i> {{ __('Mot de passe oublié') }}</h3>
@@ -465,10 +475,6 @@
                         <i class="bi bi-info-circle"></i>
                         <div>{{ __('Vous pouvez modifier ces informations plus tard depuis la page "Mon Entreprise" dans les paramètres.') }}</div>
                     </div>
-                </div>
-                <div class="guide-card" data-searchable>
-                    <h3><i class="bi bi-shield-lock"></i> {{ __('Changement de mot de passe') }}</h3>
-                    <p>{{ __('Si l\'administrateur vous a attribué un mot de passe temporaire, vous serez invité à le changer lors de votre première connexion. Le nouveau mot de passe doit contenir au moins 8 caractères.') }}</p>
                 </div>
                 <div class="guide-card" data-searchable>
                     <h3><i class="bi bi-upc-scan"></i> {{ __('Codes uniques') }}</h3>
@@ -800,7 +806,13 @@
                 </div>
                 <div class="guide-card" data-searchable>
                     <h3><i class="bi bi-bell-ring"></i> {{ __('Centre de notifications') }}</h3>
-                    <p>{{ __('Le centre de notifications vous alerte des événements importants : rappels de palpation, abonnement expiration, activités récentes. Vous pouvez marquer les notifications comme lues ou les supprimer.') }}</p>
+                    <p>{{ __('Le centre de notifications vous alerte des événements importants : rappels de palpation, abonnement expiration, activités récentes.') }}</p>
+                    <ul class="guide-steps">
+                        <li><span class="step-num">•</span> {{ __('Marquez une notification comme lue en cliquant dessus.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Supprimez une notification en cliquant sur l\'icône de suppression.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Utilisez "Marquer toutes comme lues" pour marquer toutes les notifications d\'un seul clic.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Filtrez par notifications non lues depuis le lien dans le widget du tableau de bord.') }}</li>
+                    </ul>
                 </div>
             </section>
 
@@ -850,6 +862,23 @@
                     <p>{{ __('La page "Mon Abonnement" affiche l\'historique complet de vos paiements avec le statut (complété, en attente, échoué), la date, le montant et la méthode utilisée. Vous pouvez réessayer un paiement échoué directement depuis cette page.') }}</p>
                 </div>
                 <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-arrow-repeat"></i> {{ __('Renouvellement anticipé') }}</h3>
+                    <p>{{ __('Si votre abonnement est actif, vous pouvez le renouveler anticipément depuis la page "Mon Abonnement". Cliquez sur "Renouveler", choisissez votre moyen de paiement et confirmez. Votre abonnement sera prolongé de la durée du plan choisi.') }}</p>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-x-circle"></i> {{ __('Annulation d\'abonnement') }}</h3>
+                    <p>{{ __('Vous pouvez annuler votre abonnement à tout moment depuis la page "Mon Abonnement". Après annulation :') }}</p>
+                    <ul class="guide-steps">
+                        <li><span class="step-num">•</span> {{ __('Votre abonnement restera actif jusqu\'à la fin de la période payée.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Le renouvellement automatique sera désactivé.') }}</li>
+                        <li><span class="step-num">•</span> {{ __('Vous pourrez souscrire à un nouveau plan à tout moment.') }}</li>
+                    </ul>
+                    <div class="guide-tip">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        <div><strong>{{ __('Attention') }}:</strong> {{ __('L\'annulation ne rembourse pas la période en cours. Aucune donnée ne sera supprimée.') }}</div>
+                    </div>
+                </div>
+                <div class="guide-card" data-searchable>
                     <h3><i class="bi bi-exclamation-triangle"></i> {{ __('Page d\'abonnement requis') }}</h3>
                     <p>{{ __('Si vous essayez d\'accéder à une fonctionnalité nécessitant un abonnement actif (gestion du cheptel, ventes, etc.) sans abonnement, vous serez redirigé vers une page vous invitant à souscrire. Cette page s\'affiche également si votre abonnement a expiré.') }}</p>
                     <div class="guide-tip">
@@ -868,12 +897,16 @@
                 <div class="guide-card" data-searchable>
                     <h3><i class="bi bi-people"></i> {{ __('Gestion des employés') }}</h3>
                     <p>{{ __('En tant qu\'administrateur de ferme, vous pouvez inviter des collaborateurs à rejoindre votre entreprise. Chaque employé disposera de son propre compte avec accès aux données de la ferme.') }}</p>
-                    <ul class="guide-steps">
+                    <ol class="guide-steps">
                         <li><span class="step-num">1</span> {{ __('Accédez à "Mon Entreprise" depuis le menu.') }}</li>
                         <li><span class="step-num">2</span> {{ __('Cliquez sur "Ajouter un employé".') }}</li>
-                        <li><span class="step-num">3</span> {{ __('Renseignez l\'email et le nom de l\'employé.') }}</li>
-                        <li><span class="step-num">4</span> {{ __('L\'employé recevra un email d\'invitation pour créer son compte.') }}</li>
-                    </ul>
+                        <li><span class="step-num">3</span> {{ __('Renseignez le nom, l\'email et le mot de passe de l\'employé.') }}</li>
+                        <li><span class="step-num">4</span> {{ __('L\'employé pourra se connecter immédiatement avec les identifiants fournis.') }}</li>
+                    </ol>
+                </div>
+                <div class="guide-card" data-searchable>
+                    <h3><i class="bi bi-pencil"></i> {{ __('Modifier les informations de la ferme') }}</h3>
+                    <p>{{ __('L\'administrateur peut modifier le nom et la description de la ferme depuis la page "Mon Entreprise". Ces informations s\'affichent dans l\'en-tête de l\'application et sur les factures.') }}</p>
                 </div>
                 <div class="guide-card" data-searchable>
                     <h3><i class="bi bi-shield-check"></i> {{ __('Permissions et gestion') }}</h3>
