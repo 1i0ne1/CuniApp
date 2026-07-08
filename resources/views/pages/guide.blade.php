@@ -272,6 +272,10 @@
                 <span class="search-kbd">Ctrl+K</span>
             </div>
             <div class="topbar-actions">
+                <div class="lang-switcher" style="display:flex;align-items:center;gap:0;border:1px solid var(--surface-border);border-radius:var(--radius);overflow:hidden;">
+                    <a href="{{ route('lang.switch', 'fr') }}" class="lang-btn {{ app()->getLocale() === 'fr' ? 'active' : '' }}" style="padding:6px 10px;font-size:12px;font-weight:600;text-decoration:none;color:{{ app()->getLocale() === 'fr' ? 'white' : 'var(--text-secondary)' }};background:{{ app()->getLocale() === 'fr' ? 'var(--primary)' : 'transparent' }};transition:all 0.2s;">FR</a>
+                    <a href="{{ route('lang.switch', 'en') }}" class="lang-btn {{ app()->getLocale() === 'en' ? 'active' : '' }}" style="padding:6px 10px;font-size:12px;font-weight:600;text-decoration:none;color:{{ app()->getLocale() === 'en' ? 'white' : 'var(--text-secondary)' }};background:{{ app()->getLocale() === 'en' ? 'var(--primary)' : 'transparent' }};transition:all 0.2s;">EN</a>
+                </div>
                 <a href="{{ route('home') }}" class="topbar-link"><i class="bi bi-arrow-left"></i> {{ __('Accueil') }}</a>
                 <a href="{{ route('connect') }}" class="topbar-link" style="background:var(--primary);color:white;border-radius:var(--radius);"><i class="bi bi-box-arrow-in-right"></i> {{ __('Connexion') }}</a>
                 <button class="mobile-menu-btn" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
@@ -286,14 +290,14 @@
         <!-- Sidebar -->
         <aside class="guide-sidebar" id="guideSidebar">
                 <div class="sidebar-section">
-                    <div class="sidebar-section-title"><i class="bi bi-speedometer2"></i> {{ __('Tableau de bord') }}</div>
-                    <a href="#dashboard" class="sidebar-link" data-section="dashboard"><i class="bi bi-speedometer2"></i> {{ __('Vue d\'ensemble') }}</a>
-                </div>
-                <div class="sidebar-section">
                     <div class="sidebar-section-title"><i class="bi bi-rocket-takeoff"></i> {{ __('Pour commencer') }}</div>
                 <a href="#introduction" class="sidebar-link active" data-section="introduction"><i class="bi bi-info-circle"></i> {{ __('Introduction') }}</a>
                 <a href="#getting-started" class="sidebar-link" data-section="getting-started"><i class="bi bi-play-circle"></i> {{ __('Premiers pas') }}</a>
                 <a href="#account-setup" class="sidebar-link" data-section="account-setup"><i class="bi bi-person-gear"></i> {{ __('Configuration du compte') }}</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title"><i class="bi bi-speedometer2"></i> {{ __('Tableau de bord') }}</div>
+                <a href="#dashboard" class="sidebar-link" data-section="dashboard"><i class="bi bi-speedometer2"></i> {{ __('Vue d\'ensemble') }}</a>
             </div>
             <div class="sidebar-section">
                 <div class="sidebar-section-title"><i class="bi bi-egg"></i> {{ __('Gestion du cheptel') }}</div>
