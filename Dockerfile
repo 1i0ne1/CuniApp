@@ -41,6 +41,9 @@ RUN mkdir -p storage/framework/{cache,sessions,testing,views} \
     && chmod -R 775 storage bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache
 
+# ── PHP-FPM: pass env vars to Laravel ──
+RUN echo "clear_env = no" > /usr/local/etc/php-fpm.d/zz-docker.conf
+
 # ── Nginx config ──
 COPY docker/nginx.conf /etc/nginx/sites-available/default
 
