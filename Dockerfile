@@ -19,7 +19,7 @@ RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 WORKDIR /var/www/html
 
 # ── PHP dependencies (cached layer) ──
-COPY composer.json composer.lock ./
+COPY composer.json composer.lock artisan ./
 RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
 RUN composer dump-autoload --optimize --no-dev
 
