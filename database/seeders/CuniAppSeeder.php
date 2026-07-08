@@ -529,17 +529,17 @@ class CuniAppSeeder extends Seeder
         $now = now();
 
         foreach ($employees as $employee) {
-            // Seed last 30 days
-            for ($d = 0; $d < 30; $d++) {
+            // Seed last 30 days, starting from yesterday (day 1)
+            // Today's entries are already handled by seedUserActivityTimestamps
+            for ($d = 1; $d <= 30; $d++) {
                 $date = $now->copy()->subDays($d);
                 
                 // Randomly skip some days to make it look realistic
                 if (rand(0, 10) > 2) {
-                    UserDailyActivity::create([
-                        'user_id' => $employee->id,
-                        'date' => $date->format('Y-m-d'),
-                        'hits' => rand(5, 150), // Realistic range of daily actions
-                    ]);
+                    UserDailyActivity::updateOrCreate(
+                        ['user_id' => $employee->id, 'date' => $date->format('Y-m-d')],
+                        ['hits' => rand(5, 150)]
+                    );
                 }
             }
         }
