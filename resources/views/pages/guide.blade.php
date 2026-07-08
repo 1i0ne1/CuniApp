@@ -1054,11 +1054,25 @@
 
         // Theme
         const savedTheme = localStorage.getItem('cuniapp_theme') || 'system';
+        function setTheme(theme) {
+            localStorage.setItem('cuniapp_theme', theme);
+            applyTheme(theme);
+        }
+        window.setTheme = setTheme;
+
         function applyTheme(theme) {
             const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
             document.documentElement.classList.toggle('theme-dark', isDark);
+            document.querySelectorAll('.footer-theme-btn').forEach(b => {
+                const isActive = b.dataset.theme === theme;
+                b.style.background = isActive ? 'var(--primary)' : 'transparent';
+                b.style.color = isActive ? 'white' : 'var(--text-tertiary)';
+            });
         }
         applyTheme(savedTheme);
+        document.querySelectorAll('.footer-theme-btn').forEach(btn => {
+            btn.addEventListener('click', () => { const t = btn.dataset.theme; setTheme(t); });
+        });
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
             applyTheme(localStorage.getItem('cuniapp_theme') || 'system');
         });
