@@ -61,37 +61,90 @@
         .landing-nav { position:sticky; top:0; z-index:50; transition:all 0.5s ease; }
         .landing-nav.scrolled { background:var(--surface); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid var(--surface-border); box-shadow:0 4px 30px rgba(37,99,235,0.06); }
         .nav-container { max-width:1280px; margin:0 auto; padding:0 24px; height:64px; display:flex; align-items:center; justify-content:space-between; }
-        .nav-brand { display:flex; align-items:center; gap:12px; text-decoration:none; }
-        .nav-logo { width:40px; height:40px; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(37,99,235,0.3); }
+        .nav-brand { display:flex; align-items:center; gap:12px; text-decoration:none; flex-shrink:0; }
+        .nav-logo { width:40px; height:40px; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(37,99,235,0.3); flex-shrink:0; }
         .nav-logo svg { width:22px; height:22px; }
         .nav-brand-text { font-size:20px; font-weight:700; color:var(--text-primary); letter-spacing:-0.02em; }
-        .nav-links { display:flex; align-items:center; gap:4px; }
+        .nav-links { display:flex; align-items:center; gap:4px; flex-shrink:0; }
         .nav-link { font-size:14px; font-weight:500; color:var(--text-secondary); text-decoration:none; padding:8px 16px; border-radius:var(--radius); transition:all 0.3s ease; }
         .nav-link:hover { color:var(--primary); background:var(--primary-subtle); }
-        .nav-actions { display:flex; align-items:center; gap:12px; }
-        .btn-nav-login { font-size:14px; font-weight:500; color:var(--text-secondary); text-decoration:none; padding:8px 12px; transition:color 0.3s ease; }
+        .nav-actions { display:flex; align-items:center; gap:12px; flex-shrink:0; }
+        .btn-nav-login { font-size:14px; font-weight:500; color:var(--text-secondary); text-decoration:none; padding:8px 12px; transition:color 0.3s ease; flex-shrink:0; }
         .btn-nav-login:hover { color:var(--primary); }
-        .btn-nav-cta { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; font-size:14px; font-weight:600; color:var(--white); background:linear-gradient(135deg,var(--primary),var(--primary-dark)); border:none; border-radius:var(--radius); text-decoration:none; cursor:pointer; transition:all 0.3s ease; box-shadow:0 4px 12px rgba(37,99,235,0.3); }
+        .btn-nav-cta { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; font-size:14px; font-weight:600; color:var(--white); background:linear-gradient(135deg,var(--primary),var(--primary-dark)); border:none; border-radius:var(--radius); text-decoration:none; cursor:pointer; transition:all 0.3s ease; box-shadow:0 4px 12px rgba(37,99,235,0.3); flex-shrink:0; }
         .btn-nav-cta:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(37,99,235,0.4); }
         @media(max-width:768px) {
             .nav-links{display:none;}
-            .nav-actions{gap:6px;}
-            .btn-nav-login{font-size:0;padding:8px;border-radius:var(--radius);background:var(--surface-alt);border:1px solid var(--surface-border);}
+            .nav-actions{gap:12px; display:flex; align-items:center;}
+            .btn-nav-login{font-size:0;padding:8px;border-radius:var(--radius);background:var(--surface-alt);border:1px solid var(--surface-border);flex-shrink:0;}
             .btn-nav-login:hover{background:var(--primary-subtle);border-color:rgba(37,99,235,0.3);}
             .btn-nav-login::before{content:"\f4D2";font-family:"bootstrap-icons";font-size:18px;font-weight:400;color:var(--text-secondary);}
             .btn-nav-login:hover::before{color:var(--primary);}
-            .btn-nav-cta{padding:8px 12px;font-size:0;gap:0;}
+            .btn-nav-cta{padding:8px 12px;font-size:0;gap:0;flex-shrink:0;}
             .btn-nav-cta i{font-size:18px;margin:0;}
-            .nav-guide-icon{display:flex;animation:guidePulse 2s ease-in-out infinite;}
-            .nav-guide-icon:active{transform:scale(0.95);background:var(--primary);color:white;}
+            .nav-guide-icon {
+                display: flex !important;
+                animation: guideGlow 2s ease-in-out infinite;
+                flex-shrink: 0;
+            }
+            .nav-guide-icon:active {
+                transform: scale(0.95);
+                background: var(--primary);
+                color: white !important;
+                border-color: var(--primary-dark);
+            }
+            .nav-guide-icon:active .nav-guide-dot {
+                background: white;
+                box-shadow: 0 0 8px white;
+            }
         }
-        @keyframes guidePulse{0%,100%{box-shadow:0 0 6px rgba(37,99,235,0.3);}50%{box-shadow:0 0 16px rgba(37,99,235,0.6),0 0 32px rgba(37,99,235,0.3);}}
-        .nav-guide-icon{display:none;align-items:center;justify-content:center;width:36px;height:36px;border-radius:var(--radius);background:var(--primary-subtle);border:1px solid rgba(37,99,235,0.3);text-decoration:none;color:var(--primary);transition:all 0.3s ease;position:relative;cursor:pointer;}
-        .nav-guide-icon i{font-size:18px;transition:transform 0.3s ease;}
-        .nav-guide-dot{position:absolute;top:4px;right:4px;width:8px;height:8px;background:var(--accent-green);border-radius:50%;box-shadow:0 0 6px var(--accent-green),0 0 12px rgba(16,185,129,0.4);animation:pulse 2s infinite;}
-        .nav-guide-tooltip{display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--surface);border:1px solid var(--surface-border);border-radius:var(--radius);padding:12px 16px;box-shadow:var(--shadow-lg);white-space:nowrap;font-size:13px;color:var(--text-secondary);z-index:100;pointer-events:none;}
-        .nav-guide-tooltip::before{content:"";position:absolute;top:-6px;right:16px;width:12px;height:12px;background:var(--surface);border-top:1px solid var(--surface-border);border-left:1px solid var(--surface-border);transform:rotate(45deg);}
-        .nav-guide-tooltip span{display:block;font-weight:600;color:var(--text-primary);margin-bottom:4px;}
+        @keyframes guideGlow {
+            0%, 100% {
+                box-shadow: 0 0 6px rgba(37,99,235,0.2), 0 0 12px rgba(6,182,212,0.1), inset 0 0 0 1px rgba(37,99,235,0.25);
+                border-color: rgba(37,99,235,0.3);
+            }
+            50% {
+                box-shadow: 0 0 18px rgba(37,99,235,0.5), 0 0 30px rgba(6,182,212,0.3), inset 0 0 0 1px rgba(37,99,235,0.55);
+                border-color: rgba(37,99,235,0.6);
+            }
+        }
+        .nav-guide-icon {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 6px 14px;
+            height: 36px;
+            border-radius: 100px;
+            background: var(--primary-subtle);
+            border: 1px solid rgba(37,99,235,0.25);
+            text-decoration: none;
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.06);
+            flex-shrink: 0;
+        }
+        .theme-dark .nav-guide-icon {
+            background: rgba(77,166,255,0.12);
+            border-color: rgba(77,166,255,0.3);
+            color: var(--primary);
+        }
+        .nav-guide-icon i {
+            font-size: 15px;
+            transition: transform 0.3s ease;
+        }
+        .nav-guide-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 6px var(--accent-green), 0 0 12px rgba(16,185,129,0.4);
+            animation: pulse 2s infinite;
+        }
 
         /* Hero */
         .hero-section { position:relative; overflow:hidden; isolation:isolate; }
@@ -404,16 +457,12 @@
                     <span style="position:absolute;top:2px;right:2px;width:6px;height:6px;background:var(--accent-green);border-radius:50%;box-shadow:0 0 6px var(--accent-green),0 0 12px rgba(16,185,129,0.4);animation:pulse 2s infinite;"></span>
                 </a>
             </div>
-            <a href="{{ route('guide') }}" class="nav-guide-icon">
-                <i class="bi bi-book-half"></i>
-                <span class="nav-guide-dot"></span>
-                <div class="nav-guide-tooltip">
-                    <span>{{ __('Guide') }}</span>
-                    <p style="margin:0 0 6px 0;font-size:12px;line-height:1.5;">{{ __('Découvrez comment utiliser CuniApp') }}</p>
-                    <span style="color:var(--primary);font-weight:600;">{{ __('Consulter') }} →</span>
-                </div>
-            </a>
             <div class="nav-actions">
+                <a href="{{ route('guide') }}" class="nav-guide-icon">
+                    <i class="bi bi-book-half"></i>
+                    <span>{{ __('Guide') }}</span>
+                    <span class="nav-guide-dot"></span>
+                </a>
                 <a href="{{ route('connect') }}" class="btn-nav-login">{{ __('Connexion') }}</a>
                 <a href="{{ route('connect') }}#register" class="btn-nav-cta">
                     {{ __('Commencer') }}
@@ -723,13 +772,7 @@
         const nav = document.getElementById('landingNav');
         window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 20); });
 
-        // Guide icon click - ensure navigation works on mobile
-        document.querySelectorAll('.nav-guide-icon').forEach(el => {
-            el.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.location.href = this.getAttribute('href');
-            });
-        });
+
 
         // Section reveal
         const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.1 });
