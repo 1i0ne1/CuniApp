@@ -84,10 +84,12 @@
             .btn-nav-cta i{font-size:18px;margin:0;}
             .nav-guide-icon{display:flex;}
         }
-        .nav-guide-icon{display:none;align-items:center;justify-content:center;width:36px;height:36px;border-radius:var(--radius);background:var(--surface-alt);border:1px solid var(--primary);text-decoration:none;color:var(--primary);transition:all 0.3s ease;position:relative;box-shadow:0 0 8px rgba(37,99,235,0.3),0 0 16px rgba(37,99,235,0.15);animation:guideGlow 2s ease-in-out infinite;}
-        @keyframes guideGlow{0%,100%{box-shadow:0 0 8px rgba(37,99,235,0.3),0 0 16px rgba(37,99,235,0.15);}50%{box-shadow:0 0 12px rgba(37,99,235,0.5),0 0 24px rgba(37,99,235,0.25);}}
-        .nav-guide-icon:hover{background:var(--primary);color:white;box-shadow:0 0 16px rgba(37,99,235,0.5),0 0 32px rgba(37,99,235,0.3);}
-        .nav-guide-icon i{font-size:18px;}
+        .nav-guide-icon{display:none;align-items:center;justify-content:center;width:36px;height:36px;border-radius:var(--radius);background:var(--primary-subtle);border:1px solid rgba(37,99,235,0.3);text-decoration:none;color:var(--primary);transition:all 0.3s ease;position:relative;animation:guideBounce 2s ease-in-out infinite;}
+        @keyframes guideBounce{0%,100%{transform:translateY(0);box-shadow:0 0 8px rgba(37,99,235,0.2);}50%{transform:translateY(-3px);box-shadow:0 0 16px rgba(37,99,235,0.4),0 4px 12px rgba(37,99,235,0.2);}}
+        .nav-guide-icon:hover{background:var(--primary);color:white;border-color:var(--primary);transform:translateY(-2px);box-shadow:0 0 20px rgba(37,99,235,0.5),0 4px 16px rgba(37,99,235,0.3);}
+        .nav-guide-icon i{font-size:18px;transition:transform 0.3s ease;}
+        .nav-guide-icon:hover i{transform:scale(1.1);}
+        .nav-guide-dot{position:absolute;top:4px;right:4px;width:8px;height:8px;background:var(--accent-green);border-radius:50%;box-shadow:0 0 6px var(--accent-green),0 0 12px rgba(16,185,129,0.4);animation:pulse 2s infinite;}
         .nav-guide-tooltip{display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--surface);border:1px solid var(--surface-border);border-radius:var(--radius);padding:12px 16px;box-shadow:var(--shadow-lg);white-space:nowrap;font-size:13px;color:var(--text-secondary);z-index:100;}
         .nav-guide-tooltip::before{content:"";position:absolute;top:-6px;right:16px;width:12px;height:12px;background:var(--surface);border-top:1px solid var(--surface-border);border-left:1px solid var(--surface-border);transform:rotate(45deg);}
         .nav-guide-icon:hover .nav-guide-tooltip{display:block;}
@@ -407,10 +409,11 @@
             </div>
             <a href="{{ route('guide') }}" class="nav-guide-icon">
                 <i class="bi bi-book-half"></i>
+                <span class="nav-guide-dot"></span>
                 <div class="nav-guide-tooltip">
                     <span>{{ __('Guide') }}</span>
                     <p style="margin:0 0 6px 0;font-size:12px;line-height:1.5;">{{ __('Découvrez comment utiliser CuniApp') }}</p>
-                    <a href="{{ route('guide') }}">{{ __('Consulter') }} →</a>
+                    <span style="color:var(--primary);font-weight:600;">{{ __('Consulter') }} →</span>
                 </div>
             </a>
             <div class="nav-actions">
