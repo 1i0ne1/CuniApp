@@ -221,8 +221,8 @@ class SocialAuthController extends Controller
                 'firm_id' => $firm->id,
             ]);
 
-            return redirect()->route('dashboard')
-                ->with('success', 'Bienvenue sur CuniApp ! Votre essai gratuit de 14 jours a démarré.');
+            return redirect()->route('connect')
+                ->with('success', 'Votre compte a été créé avec succès ! Cliquez sur le bouton Google à nouveau pour vous connecter.');
         } catch (Exception $e) {
             DB::rollBack();
             Log::error('❌ Échec inscription Google: ' . $e->getMessage());
