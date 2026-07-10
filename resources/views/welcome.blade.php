@@ -9,13 +9,16 @@
     <meta name="description" content="{{ __('La solution complète pour la gestion intelligente de votre élevage de lapins.') }}">
     <meta property="og:title" content="CuniApp {{ __('Élevage') }}">
     <meta property="og:description" content="{{ __('La solution complète pour la gestion intelligente de votre élevage de lapins.') }}">
-    <meta property="og:image" content="{{ asset('images/thumbnail.png') }}">
+    <meta property="og:image" content="{{ asset('images/thumbnail.jpg') }}">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1893">
+    <meta property="og:image:height" content="867">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url('/') }}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="CuniApp {{ __('Élevage') }}">
     <meta name="twitter:description" content="{{ __('La solution complète pour la gestion intelligente de votre élevage de lapins.') }}">
-    <meta name="twitter:image" content="{{ asset('images/thumbnail.png') }}">
+    <meta name="twitter:image" content="{{ asset('images/thumbnail.jpg') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
