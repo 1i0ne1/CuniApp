@@ -171,7 +171,7 @@ class SocialAuthController extends Controller
                 'role'                 => 'firm_admin',
                 'firm_id'              => $firm->id,
                 'theme'                => 'light',
-                'language'             => 'fr',
+                'language'             => session('locale'),
                 'status'               => 'active',
             ]);
 

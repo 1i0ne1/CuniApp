@@ -19,17 +19,38 @@ class SetAppLocale
     {
         $locale = config('app.locale');
 
-        if (auth()->check() && auth()->user()->language) {
-            // Priority 1: Authenticated User Preference
-            $locale = auth()->user()->language;
-        } elseif (Session::get('locale_explicit') && Session::has('locale')) {
-            // Priority 2: Explicitly chosen via language switcher
-            $locale = Session::get('locale');
+        if (auth()->check()) {
+            if (auth()->user()->language) {
+                // Priority 1: Authenticated User Preference
+                $locale = auth()->user()->language;
+            } else {
+                // Priority 2: If no DB pref, check if explicitly chosen in session
+                if (Session::get('locale_explicit') && Session::has('locale')) {
+                    $locale = Session::get('locale');
+                } else {
+                    // Priority 3: Auto-detect from browser's Accept-Language header
+                    $browserLang = $request->getPreferredLanguage(['fr', 'en']);
+                    if ($browserLang) {
+                        $locale = $browserLang;
+                    }
+                }
+
+                // Persist the detected/chosen language to the database
+                if (in_array($locale, ['en', 'fr'])) {
+                    auth()->user()->update(['language' => $locale]);
+                }
+            }
         } else {
-            // Priority 3: Auto-detect from browser's Accept-Language header
-            $browserLang = $request->getPreferredLanguage(['fr', 'en']);
-            if ($browserLang) {
-                $locale = $browserLang;
+            // Guest Flow
+            if (Session::get('locale_explicit') && Session::has('locale')) {
+                // Priority 1: Explicitly chosen via language switcher
+                $locale = Session::get('locale');
+            } else {
+                // Priority 2: Auto-detect from browser's Accept-Language header
+                $browserLang = $request->getPreferredLanguage(['fr', 'en']);
+                if ($browserLang) {
+                    $locale = $browserLang;
+                }
             }
         }
 
