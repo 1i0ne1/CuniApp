@@ -329,7 +329,9 @@ Route::middleware('auth')->group(function () {
         Route::middleware(['verified', 'check.super.admin'])->prefix('super-admin')->name('super.admin.')->group(function () {
             Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])->name('dashboard');
             Route::get('/firms', [SuperAdminController::class, 'firms'])->name('firms');
+            Route::get('/firms/activity', [SuperAdminController::class, 'firmsActivity'])->name('firms.activity');
             Route::get('/firms/{id}', [SuperAdminController::class, 'showFirm'])->name('firms.show');
+            Route::get('/firms/{id}/users-activity', [SuperAdminController::class, 'firmUsersActivity'])->name('firms.users.activity');
             Route::post('/firms/{id}/ban', [SuperAdminController::class, 'banFirm'])->name('firms.ban');
             Route::post('/firms/{id}/activate', [SuperAdminController::class, 'activateFirm'])->name('firms.activate');
         });

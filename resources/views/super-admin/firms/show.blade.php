@@ -118,7 +118,7 @@
                         </div>
                         <div>
                             <p class="stats-label-small">{{ __('Utilisateurs en ligne') }}</p>
-                            <p class="stats-value-small">{{ $stats['online_count'] }} / {{ $stats['user_count'] }}</p>
+                            <p class="stats-value-small"><span class="online-count-display">{{ $stats['online_count'] }}</span> / {{ $stats['user_count'] }}</p>
                         </div>
                     </div>
                 </div>
@@ -145,7 +145,7 @@
             <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
                 <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; background: rgba(16, 185, 129, 0.1); color: #059669; font-size: 12px; font-weight: 600;">
                     <span class="online-dot green"></span>
-                    {{ __('En ligne') }}: {{ $stats['online_count'] }}
+                    {{ __('En ligne') }}: <span class="online-count-display">{{ $stats['online_count'] }}</span>
                 </span>
                 <span style="font-size: 12px; color: var(--text-tertiary);">{{ $stats['user_count'] }} {{ __('utilisateur(s) au total') }}</span>
             </div>
@@ -205,7 +205,7 @@
                     <tbody>
                         @foreach ($users as $u)
                             @php $isUserOnline = $u->isOnline(); @endphp
-                            <tr style="border-bottom: 1px solid var(--surface-border);">
+                            <tr data-user-id="{{ $u->id }}" style="border-bottom: 1px solid var(--surface-border);">
                                 <td style="padding: 12px; font-weight: 600;">
                                     <span style="display: flex; align-items: center; gap: 8px;">
                                         <span class="online-dot {{ $isUserOnline ? 'green' : 'gray' }}"></span>
@@ -227,7 +227,7 @@
                                         <span class="badge" style="background: rgba(239, 68, 68, 0.1); color: var(--accent-red);">{{ __('Inactif') }}</span>
                                     @endif
                                 </td>
-                                <td style="padding: 12px;">
+                                <td class="activity-cell" style="padding: 12px;">
                                     @if($isUserOnline)
                                         <span style="display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 20px; background: rgba(16, 185, 129, 0.1); color: #059669; font-size: 12px; font-weight: 600;">
                                             <span class="online-dot green"></span>
@@ -263,4 +263,58 @@
             </div>
         </div>
     </div>
+
+    <script>
+    (function() {
+        const usersActivityUrl = '{{ route("super.admin.firms.users.activity", $firm->id) }}';
+
+        function timeSince(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            if (seconds < 60) return 'à l\'instant';
+            const minutes = Math.floor(seconds / 60);
+            if (minutes < 60) return 'il y a ' + minutes + ' minute' + (minutes > 1 ? 's' : '');
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return 'il y a ' + hours + ' heure' + (hours > 1 ? 's' : '');
+            const days = Math.floor(hours / 24);
+            return 'il y a ' + days + ' jour' + (days > 1 ? 's' : '');
+        }
+
+        function updateUserCells(data) {
+            data.forEach(function(user) {
+                const row = document.querySelector('tr[data-user-id="' + user.id + '"]');
+                if (!row) return;
+
+                const dot = row.querySelector('.online-dot');
+                if (dot) {
+                    dot.className = 'online-dot ' + (user.is_online ? 'green' : 'gray');
+                }
+
+                const activityCell = row.querySelector('.activity-cell');
+                if (activityCell) {
+                    if (user.is_online) {
+                        activityCell.innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 20px; background: rgba(16, 185, 129, 0.1); color: #059669; font-size: 12px; font-weight: 600;"><span class="online-dot green"></span> En ligne</span>';
+                    } else if (user.last_seen_at) {
+                        const diff = timeSince(new Date(user.last_seen_at));
+                        activityCell.innerHTML = '<span style="font-size: 12px; color: var(--text-tertiary);"><i class="bi bi-clock"></i> ' + diff + '</span>';
+                    } else {
+                        activityCell.innerHTML = '<span style="font-size: 12px; color: var(--text-tertiary);">—</span>';
+                    }
+                }
+            });
+
+            const onlineCount = data.filter(u => u.is_online).length;
+            const countEl = document.querySelector('.online-count-display');
+            if (countEl) countEl.textContent = onlineCount;
+        }
+
+        function pollUsers() {
+            fetch(usersActivityUrl, { headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' } })
+                .then(function(r) { return r.json(); })
+                .then(updateUserCells)
+                .catch(function() {});
+        }
+
+        setInterval(pollUsers, 30000);
+    })();
+    </script>
 @endsection

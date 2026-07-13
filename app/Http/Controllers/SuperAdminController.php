@@ -183,6 +183,41 @@ class SuperAdminController extends Controller
         return view('super-admin.firms.index', compact('firms'));
     }
 
+    public function firmsActivity()
+    {
+        $firms = Firm::with(['users' => function ($q) {
+            $q->select('id', 'firm_id', 'role', 'last_seen_at')
+                ->where('role', 'firm_admin');
+        }])->get();
+
+        $data = $firms->map(function ($firm) {
+            $admin = $firm->users->first();
+            return [
+                'id' => $firm->id,
+                'last_seen_at' => $admin?->last_seen_at?->toISOString(),
+                'is_online' => $admin?->isOnline() ?? false,
+            ];
+        });
+
+        return response()->json($data);
+    }
+
+    public function firmUsersActivity($id)
+    {
+        $users = User::where('firm_id', $id)
+            ->select('id', 'last_seen_at', 'status')
+            ->get()
+            ->map(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'last_seen_at' => $user->last_seen_at?->toISOString(),
+                    'is_online' => $user->isOnline(),
+                ];
+            });
+
+        return response()->json($users);
+    }
+
     public function banFirm($id)
     {
         $firm = Firm::findOrFail($id);

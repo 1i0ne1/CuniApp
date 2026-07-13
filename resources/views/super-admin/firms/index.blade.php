@@ -105,7 +105,7 @@
                         $isOnline = $admin && $admin->isOnline();
                         $lastSeen = $admin?->last_seen_at;
                     @endphp
-                    <tr>
+                    <tr data-firm-id="{{ $firm->id }}">
                         <td>
                             <strong>{{ $firm->name }}</strong><br>
                             <small class="text-muted">{{ $firm->created_at->format('d/m/Y') }}</small>
@@ -125,7 +125,7 @@
                         <td class="fw-bold" style="color: var(--primary);">
                             {{ number_format($firm->total_revenue ?? 0, 0, ',', ' ') }} FCFA
                         </td>
-                        <td>
+                        <td class="activity-cell">
                             @if($isOnline)
                                 <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 20px; background: rgba(16, 185, 129, 0.1); color: #10B981; font-size: 12px; font-weight: 600;">
                                     <span style="width: 7px; height: 7px; border-radius: 50%; background: #10B981; animation: pulse-dot 2s infinite;"></span>
@@ -195,4 +195,50 @@
     50% { opacity: 0.4; }
 }
 </style>
+
+<script>
+(function() {
+    const activityUrl = '{{ route("super.admin.firms.activity") }}';
+    const firms = @json($firms->pluck('id'));
+    let currentSort = '{{ request("sort", "revenue") }}';
+
+    function updateActivityCell(firmId, data) {
+        const row = document.querySelector(`tr[data-firm-id="${firmId}"]`);
+        if (!row) return;
+        const cell = row.querySelector('.activity-cell');
+        if (!cell) return;
+
+        if (data.is_online) {
+            cell.innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 20px; background: rgba(16, 185, 129, 0.1); color: #10B981; font-size: 12px; font-weight: 600;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #10B981; animation: pulse-dot 2s infinite;"></span> En ligne</span>';
+        } else if (data.last_seen_at) {
+            const diff = timeSince(new Date(data.last_seen_at));
+            cell.innerHTML = '<span style="font-size: 12px; color: var(--text-tertiary);"><i class="bi bi-clock"></i> ' + diff + '</span>';
+        } else {
+            cell.innerHTML = '<span style="font-size: 12px; color: var(--text-tertiary);">—</span>';
+        }
+    }
+
+    function timeSince(date) {
+        const seconds = Math.floor((new Date() - date) / 1000);
+        if (seconds < 60) return 'à l\'instant';
+        const minutes = Math.floor(seconds / 60);
+        if (minutes < 60) return 'il y a ' + minutes + ' minute' + (minutes > 1 ? 's' : '');
+        const hours = Math.floor(minutes / 60);
+        if (hours < 24) return 'il y a ' + hours + ' heure' + (hours > 1 ? 's' : '');
+        const days = Math.floor(hours / 24);
+        return 'il y a ' + days + ' jour' + (days > 1 ? 's' : '');
+    }
+
+    function pollActivity() {
+        fetch(activityUrl, { headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(r => r.json())
+            .then(data => {
+                data.forEach(item => updateActivityCell(item.id, item));
+            })
+            .catch(() => {});
+    }
+
+    setInterval(pollActivity, 30000);
+})();
+</script>
 @endsection
