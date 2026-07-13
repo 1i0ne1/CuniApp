@@ -134,7 +134,7 @@ class EmailVerificationCodeController extends Controller
                     'role'              => 'firm_admin',
                     'firm_id'           => $firm->id,
                     'theme'             => 'light',
-                    'language'          => session('locale'),
+                    'language'          => session('locale') ?: ($request->getPreferredLanguage(['fr', 'en']) ?: 'fr'),
                     'status'            => 'active',
                 ]);
 
