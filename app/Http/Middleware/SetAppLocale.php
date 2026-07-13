@@ -25,6 +25,12 @@ class SetAppLocale
         } elseif (Session::has('locale')) {
             // Priority 2: Session (for guests or before login)
             $locale = Session::get('locale');
+        } else {
+            // Priority 3: Detect from browser's Accept-Language header
+            $browserLang = $request->getPreferredLanguage(['fr', 'en']);
+            if ($browserLang) {
+                $locale = $browserLang;
+            }
         }
 
         if (in_array($locale, ['en', 'fr'])) {
